@@ -39,7 +39,9 @@ Search and list write a JSON array to stdout. Results contain:
     "description": "Process a large async input stream with bounded concurrency and backpressure.",
     "python": ">=3.12",
     "runtime": "asyncio",
-    "status": "draft"
+    "status": "draft",
+    "libraries": {},
+    "services": []
   }
 ]
 ```
@@ -47,6 +49,8 @@ Search and list write a JSON array to stdout. Results contain:
 Consumers should tolerate additive fields. Search order is deterministic:
 query coverage in capability metadata, weighted metadata, prose tie-breaking,
 then ID. List order is by ID.
+Library and service requirements are displayed for selection, not verified
+against the target project.
 There are no confidence probabilities or claims of semantic understanding.
 See [retrieval](retrieval.md) for admission rules and measurements.
 

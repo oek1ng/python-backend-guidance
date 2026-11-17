@@ -4,9 +4,11 @@ Framework-independent, verifiable Python backend guidance for coding agents.
 
 **Expanded Alpha:** 60 draft guides across 12 backend areas, a local CLI,
 an agent skill, and solution grading/calibration. Reference examples have behavioral tests;
-a [small direct-guide agent pilot](evals/experiments/2026-11-16-sol-pilot.md) is recorded.
-General agent-performance improvements have not been established. The package has
-not been published to PyPI.
+[direct-guide](evals/experiments/2026-11-16-sol-pilot.md) and
+[application-workflow](evals/experiments/2026-11-17-application-pilot.md)
+research pilots are recorded. Both reached a correctness ceiling; general
+agent-performance improvements have not been established. The package has not
+been published to PyPI.
 
 ## Principles
 
@@ -39,7 +41,8 @@ python-backend-guidance list
 python-backend-guidance search "workflow deadline" --python 3.12 --runtime asyncio
 ```
 
-Search/list return JSON with guide IDs, descriptions, requirements, and review status.
+Search/list return JSON with guide IDs, descriptions, Python/runtime and declared
+library/service requirements, and review status.
 Retrieval prints the full Markdown guide, including compatibility metadata.
 No matches produces `[]`; an unknown guide ID exits with status 1. Invalid CLI
 arguments exit with status 2.
@@ -105,6 +108,8 @@ Each guide has a runnable reference, reusable behavioral contract, deliberately
 defective calibration candidate, sources and explicit limitations. All remain
 `draft`: source inspection, tested examples, independent review and agent outcome
 measurements are different evidence.
+See [review priorities](docs/review-priorities.md) for a first independent
+technical-review batch.
 
 Recipes include runtime-independent logic, synchronous I/O and asyncio. Database
 examples explicitly target PostgreSQL/Psycopg; broker adapters target RabbitMQ/Pika.
@@ -147,7 +152,9 @@ package after changing the skill to refresh the packaged snapshot.
 See [the versioned guide format](docs/guide-format.md),
 [CONTRIBUTING.md](CONTRIBUTING.md) for contribution requirements, and
 [evals/README.md](evals/README.md) for grading, security boundaries, and remaining
-agent-evaluation work.
+agent-evaluation work. The [application-evaluation protocol](evals/experiments/application-workflow-protocol.md)
+separates direct-guide access from full skill/search/retrieve use; the
+exploratory pilot and its deviations are reported separately.
 
 ## Licensing
 

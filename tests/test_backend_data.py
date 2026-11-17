@@ -1,6 +1,6 @@
 from collections.abc import AsyncGenerator, Mapping
 from datetime import UTC, datetime
-from decimal import Decimal
+from decimal import Decimal, Inexact, localcontext
 
 import pytest
 
@@ -128,3 +128,23 @@ class TestMoney:
     ) -> None:
         with pytest.raises(ValueError):
             _ = implementation(value)
+
+    def test_amount_just_above_limit_is_rejected_before_rounding(
+        self, implementation: Money
+    ) -> None:
+        with pytest.raises(ValueError):
+            _ = implementation("1000000000.0000000000000000001")
+
+    def test_extreme_exponent_is_reported_as_invalid_input(
+        self, implementation: Money
+    ) -> None:
+        with pytest.raises(ValueError):
+            _ = implementation("1e9999999")
+
+    def test_rounding_does_not_inherit_ambient_decimal_traps(
+        self, implementation: Money
+    ) -> None:
+        with localcontext() as context:
+            context.traps[Inexact] = True
+
+            assert implementation("2.675") == Decimal("2.68")

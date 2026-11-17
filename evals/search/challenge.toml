@@ -1,0 +1,132 @@
+schema_version = 1
+
+# Author-authored near-miss stress set, NOT an independently collected holdout.
+[[queries]]
+split = "validation"
+query = "our async inventory import is producing records faster than its slow remote API can accept"
+expected = ["bound-concurrent-work"]
+
+[[queries]]
+split = "validation"
+query = "how can a background worker stop taking work while existing tasks finish on shutdown"
+expected = ["drain-on-shutdown"]
+
+[[queries]]
+split = "validation"
+query = "duplicate delivery charged the same account twice after the consumer restarted"
+expected = ["deduplicate-deliveries"]
+
+[[queries]]
+split = "validation"
+query = "another user's receipt is readable by changing the ID in a request"
+expected = ["authorize-objects"]
+
+[[queries]]
+split = "validation"
+query = "clients reuse a URL but keep opening new sockets for each request"
+expected = ["reuse-http-clients"]
+
+[[queries]]
+split = "validation"
+query = "money amounts from a JSON string round differently than our business rule"
+expected = ["quantize-money"]
+
+[[queries]]
+split = "validation"
+query = "choose database isolation level"
+expected = []
+
+[[queries]]
+split = "validation"
+query = "compare PostgreSQL isolation levels for analytical reads"
+expected = []
+
+[[queries]]
+split = "validation"
+query = "configure Django middleware for request authentication"
+expected = []
+
+[[queries]]
+split = "validation"
+query = "implement OAuth2 authorization code with PKCE"
+expected = []
+
+[[queries]]
+split = "validation"
+query = "rotate encryption keys for stored customer records"
+expected = []
+
+[[queries]]
+split = "validation"
+query = "migrate Django models with the ORM"
+expected = []
+
+[[queries]]
+split = "validation"
+query = "select a Kafka partition strategy for ordered events"
+expected = []
+
+[[queries]]
+split = "validation"
+query = "implement distributed Redis lock renewal"
+expected = []
+
+[[queries]]
+split = "validation"
+query = "build a distributed tracing exporter for OpenTelemetry"
+expected = []
+
+[[queries]]
+split = "validation"
+query = "schedule periodic jobs using Celery beat"
+expected = []
+
+[[queries]]
+split = "validation"
+query = "configure asyncio event loop policy on Windows"
+expected = []
+
+[[queries]]
+split = "validation"
+query = "how do I choose the correct tax rate for cross border invoices"
+expected = []
+
+[[queries]]
+split = "validation"
+query = "write a PostgreSQL full text search index"
+expected = []
+
+[[queries]]
+split = "validation"
+query = "enable WebSocket compression and heartbeat pings"
+expected = []
+
+[[queries]]
+split = "validation"
+query = "stream an HTTP response to a browser using server sent events"
+expected = []
+
+[[queries]]
+split = "validation"
+query = "configure mTLS certificate rotation for incoming connections"
+expected = []
+
+[[queries]]
+split = "validation"
+query = "benchmark CPU bound JSON serialization"
+expected = []
+
+[[queries]]
+split = "validation"
+query = "store passwords using Argon2id"
+expected = []
+
+[[queries]]
+split = "validation"
+query = "use FastAPI dependency injection for request scoped sessions"
+expected = []
+
+[[queries]]
+split = "validation"
+query = "choose a rate limit algorithm for API consumers"
+expected = []

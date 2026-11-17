@@ -29,6 +29,17 @@ def test_search_returns_json_results(
     assert [guide["id"] for guide in guides] == expected_ids
 
 
+def test_search_exposes_external_requirements_before_retrieval(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    result = main(["search", "PostgreSQL lost updates", "--limit", "1"])
+
+    matches = cast(list[SearchResult], json.loads(capsys.readouterr().out))
+    assert result == 0
+    assert matches[0]["libraries"] == {"psycopg": ">=3.2,<4"}
+    assert matches[0]["services"] == ["PostgreSQL >=16"]
+
+
 def test_retrieve_prints_the_guide_with_compatibility_metadata(
     capsys: pytest.CaptureFixture[str],
 ) -> None:

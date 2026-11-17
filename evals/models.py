@@ -69,9 +69,13 @@ class SeedTargets(TypedDict):
 
 class SearchReport(TypedDict):
     report_schema: Literal[1]
-    kind: Literal["seed-retrieval-benchmark"]
+    kind: Literal["seed-retrieval-benchmark", "external-retrieval-benchmark"]
     split: Split
     dataset_sha256: str
+    search_sha256: str
+    catalog_sha256: str
+    models_sha256: str
+    lock_sha256: str
     guide_sha256: dict[str, str]
     catalog_size: int
     metrics: Metrics
@@ -91,8 +95,13 @@ class Provenance(TypedDict):
     solution_sha256: str
     guide_sha256: str
     contract_sha256: str
+    registry_sha256: str
+    runner_sha256: str
+    models_sha256: str
+    lock_sha256: str
     checks_sha256: str
     fixtures_sha256: str
+    test_contracts_sha256: str
     fixture_files_sha256: dict[str, str]
     dependency_versions: dict[str, str]
     package_version: str
@@ -139,5 +148,24 @@ def read_registry(path: Path) -> Registry:
 
 
 def read_dataset(path: Path) -> Dataset:
-    # The repository-owned schema-1 corpus is checked by test_search_benchmark.py.
-    return cast(Dataset, tomllib.loads(path.read_text(encoding="utf-8")))
+    # A supplied external corpus is data, not a trusted checked-in fixture.
+    value: dict[str, object] = tomllib.loads(path.read_text(encoding="utf-8"))
+    raw_queries = value.get("queries")
+    if type(value.get("schema_version")) is not int or value["schema_version"] != 1:
+        raise ValueError("Expected a schema-1 query dataset")
+    if not isinstance(raw_queries, list):
+        raise ValueError("Expected a schema-1 query dataset")
+    for raw_row in cast(list[object], raw_queries):
+        if not isinstance(raw_row, dict):
+            raise ValueError("Invalid query dataset row")
+        row = cast(dict[str, object], raw_row)
+        expected = row.get("expected")
+        if (
+            row.get("split") not in ("development", "validation")
+            or not isinstance(row.get("query"), str)
+            or row["query"].strip() == ""
+            or not isinstance(expected, list)
+            or not all(isinstance(item, str) for item in cast(list[object], expected))
+        ):
+            raise ValueError("Invalid query dataset row")
+    return cast(Dataset, value)

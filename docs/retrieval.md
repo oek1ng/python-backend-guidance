@@ -42,11 +42,42 @@ uv run python -m evals.search --split validation --check
 ```
 
 `--output <new-file.json>` records a report without overwriting an existing file.
-Reports include dataset and guide hashes, per-query results, and these metrics:
+Reports include dataset, guide, ranking implementation and lockfile hashes,
+per-query results, and these metrics:
 
 - Top-1 accuracy on supported queries.
 - Hit@3 and mean reciprocal rank on supported queries.
 - False-positive rate on queries outside current coverage.
+
+To measure **independently collected** queries without changing the seed set,
+prepare a TOML file with schema version 1 and labeled rows:
+
+```toml
+schema_version = 1
+[[queries]]
+split = "validation"
+query = "my application task in the reporter's own words"
+expected = ["bound-concurrent-work"]
+[[queries]]
+split = "validation"
+query = "topic outside catalog coverage"
+expected = []
+```
+
+Then run `uv run python -m evals.search --dataset path/to/queries.toml`.
+Include supported and unsupported queries; label with all relevant guide IDs.
+Keep the raw corpus, collection method and independent label review alongside
+the report. External datasets have no seed gate: `--check` is refused with
+`--dataset`. Do not use a held-out corpus to tune aliases and then claim a
+blind result on that same corpus. No externally sourced corpus is bundled yet.
+
+`evals/search/challenge.toml` is a separate author-authored stress set with six
+application-style supported prompts and twenty near-miss unsupported prompts.
+It is **not** an external holdout and is not a CI gate. On the initial catalog,
+directly searching the unrefined prompts returned 0/6 relevant first results
+and 1/20 false positives. This tests a different input style from the intended
+focused capability queries; it is a reason to measure whether agents can
+reformulate a task, not to claim the seed benchmark's 97.2% generalizes.
 
 The expanded corpus contains **172 queries**: 90 development (80 supported,
 10 unsupported) and 82 validation (72 supported, 10 unsupported). Every guide

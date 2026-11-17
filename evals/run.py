@@ -5,9 +5,12 @@ import hashlib
 import json
 import os
 import platform
+import selectors
+import signal
 import subprocess
 import sys
 import tempfile
+import time
 import xml.etree.ElementTree as ET
 from collections import Counter
 from importlib.metadata import version
@@ -27,10 +30,54 @@ from evals.models import (
 from python_backend_guidance.catalog import load_guides
 
 ROOT = Path(__file__).resolve().parents[1]
+LOG_LIMIT = 16000
 
 
 def digest(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def run_checks(
+    command: list[str], *, environment: dict[str, str], timeout: int
+) -> tuple[int | None, str]:
+    """Keep only a bounded log tail and stop the owned POSIX process group."""
+    deadline = time.monotonic() + timeout
+    process = subprocess.Popen(
+        command,
+        cwd=ROOT,
+        env=environment,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        start_new_session=True,
+    )
+    log = b""
+    try:
+        assert process.stdout is not None
+        with selectors.DefaultSelector() as selector:
+            _ = selector.register(process.stdout, selectors.EVENT_READ)
+            while len(selector.get_map()) != 0:
+                remaining = deadline - time.monotonic()
+                if remaining <= 0:
+                    return None, log.decode("utf-8", errors="replace")
+                for key, _ in selector.select(remaining):
+                    chunk = os.read(key.fd, 65536)
+                    if chunk != b"":
+                        log = (log + chunk)[-LOG_LIMIT:]
+                    else:
+                        _ = selector.unregister(key.fileobj)
+            try:
+                exit_code = process.wait(timeout=max(0, deadline - time.monotonic()))
+                return exit_code, log.decode("utf-8", errors="replace")
+            except subprocess.TimeoutExpired:
+                return None, log.decode("utf-8", errors="replace")
+    finally:
+        try:
+            os.killpg(process.pid, signal.SIGKILL)
+        except ProcessLookupError:
+            pass
+        if process.stdout is not None:
+            process.stdout.close()
+        _ = process.wait()
 
 
 def grade(
@@ -55,8 +102,13 @@ def grade(
         "solution_sha256": digest(solution),
         "guide_sha256": hashlib.sha256(guide.content.encode()).hexdigest(),
         "contract_sha256": digest(ROOT / task["prompt"]),
+        "registry_sha256": digest(ROOT / "evals/tasks.toml"),
+        "runner_sha256": digest(ROOT / "evals/run.py"),
+        "models_sha256": digest(ROOT / "evals/models.py"),
+        "lock_sha256": digest(ROOT / "uv.lock"),
         "checks_sha256": digest(ROOT / task["tests"]),
         "fixtures_sha256": digest(ROOT / "tests/conftest.py"),
+        "test_contracts_sha256": digest(ROOT / "tests/contracts.py"),
         "fixture_files_sha256": {
             str(path.relative_to(ROOT)): digest(path)
             for parent in (ROOT / task["tests"]).parents
@@ -93,6 +145,7 @@ def grade(
             "-o",
             f"cache_dir={workspace / 'cache'}",
             "-q",
+            "-s",
         ]
         if selected_check is not None:
             command.extend(["-k", selected_check])
@@ -110,17 +163,10 @@ def grade(
         for name in ("PBG_POSTGRES_DSN", "PBG_AMQP_URL"):
             if name in os.environ:
                 environment[name] = os.environ[name]
-        try:
-            result = subprocess.run(
-                command,
-                cwd=ROOT,
-                env=environment,
-                capture_output=True,
-                text=True,
-                timeout=timeout,
-            )
-        except subprocess.TimeoutExpired:
+        exit_code, log = run_checks(command, environment=environment, timeout=timeout)
+        if exit_code is None:
             report["status"] = "timeout"
+            report["log"] = log
             return report
 
         checks: list[Check] = []
@@ -138,17 +184,17 @@ def grade(
                         break
                 checks.append({"name": case.attrib["name"], "outcome": outcome})
         summary = dict(Counter(check["outcome"] for check in checks))
-        if result.returncode == 0 and len(checks) != 0 and set(summary) == {"passed"}:
+        if exit_code == 0 and len(checks) != 0 and set(summary) == {"passed"}:
             status = "passed"
-        elif result.returncode == 1 and len(checks) != 0:
+        elif exit_code == 1 and len(checks) != 0:
             status = "failed"
         else:
             status = "infrastructure-error"
         report["status"] = status
-        report["exit_code"] = result.returncode
+        report["exit_code"] = exit_code
         report["checks"] = checks
         report["summary"] = summary
-        report["log"] = (result.stdout + result.stderr)[-16000:]
+        report["log"] = log
         return report
 
 

@@ -28,6 +28,8 @@ class SearchResult(TypedDict):
     python: str
     runtime: str
     status: Literal["draft", "reviewed"]
+    libraries: dict[str, str]
+    services: list[str]
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -107,6 +109,8 @@ def main(argv: list[str] | None = None) -> int:
                 "python": guide.python,
                 "runtime": guide.runtime,
                 "status": guide.status,
+                "libraries": dict(guide.libraries),
+                "services": list(guide.services),
             }
             for guide in matches
         ]

@@ -1,12 +1,14 @@
 import hashlib
 import json
+import os
 import subprocess
 import sys
+import time
 from pathlib import Path
 from typing import cast
 
 from evals.models import GradeReport, read_registry
-from evals.run import calibrate
+from evals.run import LOG_LIMIT, calibrate, run_checks
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -69,6 +71,61 @@ def test_grading_runs_the_public_contract_and_records_provenance() -> None:
     assert all(check["outcome"] == "passed" for check in report["checks"])
     assert report["contract_sha256"] != ""
     assert report["fixtures_sha256"] != ""
+    assert (
+        report["runner_sha256"]
+        == hashlib.sha256((ROOT / "evals/run.py").read_bytes()).hexdigest()
+    )
+    assert (
+        report["registry_sha256"]
+        == hashlib.sha256((ROOT / "evals/tasks.toml").read_bytes()).hexdigest()
+    )
+    assert (
+        report["models_sha256"]
+        == hashlib.sha256((ROOT / "evals/models.py").read_bytes()).hexdigest()
+    )
+    assert (
+        report["lock_sha256"]
+        == hashlib.sha256((ROOT / "uv.lock").read_bytes()).hexdigest()
+    )
+    assert (
+        report["test_contracts_sha256"]
+        == hashlib.sha256((ROOT / "tests/contracts.py").read_bytes()).hexdigest()
+    )
+
+
+def test_grader_bounds_subprocess_output() -> None:
+    exit_code, log = run_checks(
+        [sys.executable, "-c", "print('x' * 100000)"],
+        environment=dict(os.environ),
+        timeout=5,
+    )
+
+    assert exit_code == 0
+    assert log.endswith("x" * 1000 + "\n")
+    assert len(log.encode()) <= LOG_LIMIT
+
+
+def test_grader_timeout_kills_descendants_holding_its_output_pipe() -> None:
+    script = (
+        "import subprocess, sys\n"
+        "child = subprocess.Popen([sys.executable, '-c', "
+        "'import time; time.sleep(30)'])\n"
+        "print(child.pid, flush=True)\n"
+    )
+
+    exit_code, log = run_checks(
+        [sys.executable, "-c", script], environment=dict(os.environ), timeout=1
+    )
+
+    assert exit_code is None
+    pid = int(log.strip())
+    # On Linux an orphaned child may briefly remain visible as a reaped zombie.
+    status = Path(f"/proc/{pid}/stat")
+    until = time.monotonic() + 1
+    while status.exists() and status.read_text().split()[2] != "Z":
+        assert time.monotonic() < until, "grader left a running descendant"
+        time.sleep(0.01)
+    assert not status.exists() or status.read_text().split()[2] == "Z"
 
 
 def test_existing_report_is_not_overwritten(tmp_path: Path) -> None:

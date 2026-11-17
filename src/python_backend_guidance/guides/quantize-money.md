@@ -33,17 +33,16 @@ units are often simpler when no fractional intermediate calculation is needed.
 ```python
 """Domain policy: decimal money has two minor digits and half-even rounding."""
 
-from decimal import ROUND_HALF_EVEN, Decimal, InvalidOperation, localcontext
+from decimal import ROUND_HALF_EVEN, Context, Decimal, InvalidOperation, localcontext
 
 
 def money(value: object) -> Decimal:
     if not isinstance(value, str) or len(value) > 64:
         raise ValueError("bounded decimal string required")
     try:
-        with localcontext() as context:
-            context.prec = 28
+        with localcontext(Context(prec=28)):
             amount = Decimal(value)
-            if not amount.is_finite() or abs(amount) > Decimal("1000000000"):
+            if not amount.is_finite() or amount.copy_abs() > Decimal("1000000000"):
                 raise ValueError("invalid amount")
             return amount.quantize(Decimal("0.01"), rounding=ROUND_HALF_EVEN)
     except InvalidOperation as error:
@@ -65,7 +64,8 @@ rounding the total can differ; choose the domain's rule.
 ## Verification
 
 Run `uv run pytest tests/test_backend_data.py --task quantize-money`.
-Check decimal tie rounding and rejection of floats, nonfinite and oversized values.
+Check decimal tie rounding, exact limit enforcement, context independence, and
+rejection of floats, nonfinite and oversized values.
 
 ## Sources
 

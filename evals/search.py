@@ -19,6 +19,7 @@ from evals.models import (
 from python_backend_guidance.catalog import load_guides, search_guides
 
 DATASET = Path(__file__).with_name("search") / "queries.toml"
+ROOT = Path(__file__).resolve().parents[1]
 TOP1_TARGET = 0.9
 FALSE_POSITIVE_TARGET = 0.1
 
@@ -52,13 +53,16 @@ def summarize(rows: Sequence[RankedResult]) -> Metrics:
     }
 
 
-def evaluate(split: Split) -> SearchReport:
+def evaluate(split: Split, *, dataset_path: Path = DATASET) -> SearchReport:
     guides = load_guides()
-    dataset = read_dataset(DATASET)
+    dataset = read_dataset(dataset_path)
+    ids = {guide.id for guide in guides}
     rows: list[RankedQuery] = []
     for item in dataset["queries"]:
         if item["split"] != split:
             continue
+        if not set(item["expected"]) <= ids:
+            raise ValueError(f"Unknown guide label for query: {item['query']}")
         actual = [guide.id for guide in search_guides(item["query"], guides)]
         expected = item["expected"]
         rank = next(
@@ -76,9 +80,23 @@ def evaluate(split: Split) -> SearchReport:
         )
     return {
         "report_schema": 1,
-        "kind": "seed-retrieval-benchmark",
+        "kind": (
+            "seed-retrieval-benchmark"
+            if dataset_path == DATASET
+            else "external-retrieval-benchmark"
+        ),
         "split": split,
-        "dataset_sha256": hashlib.sha256(DATASET.read_bytes()).hexdigest(),
+        "dataset_sha256": hashlib.sha256(dataset_path.read_bytes()).hexdigest(),
+        "search_sha256": hashlib.sha256(
+            (ROOT / "evals/search.py").read_bytes()
+        ).hexdigest(),
+        "catalog_sha256": hashlib.sha256(
+            (ROOT / "src/python_backend_guidance/catalog.py").read_bytes()
+        ).hexdigest(),
+        "models_sha256": hashlib.sha256(
+            (ROOT / "evals/models.py").read_bytes()
+        ).hexdigest(),
+        "lock_sha256": hashlib.sha256((ROOT / "uv.lock").read_bytes()).hexdigest(),
         "guide_sha256": {
             guide.id: hashlib.sha256(guide.content.encode()).hexdigest()
             for guide in guides
@@ -91,6 +109,7 @@ def evaluate(split: Split) -> SearchReport:
 
 class Arguments(argparse.Namespace):
     split: Split = "validation"
+    dataset: Path | None = None
     output: Path | None = None
     check: bool = False
 
@@ -100,6 +119,9 @@ def main(argv: list[str] | None = None) -> int:
     _ = parser.add_argument(
         "--split", choices=["development", "validation"], default="validation"
     )
+    _ = parser.add_argument(
+        "--dataset", type=Path, help="Additional labeled query corpus"
+    )
     _ = parser.add_argument("--output", type=Path)
     _ = parser.add_argument(
         "--check",
@@ -107,13 +129,19 @@ def main(argv: list[str] | None = None) -> int:
         help="Fail if the seed regression targets are missed",
     )
     args = parser.parse_args(argv, namespace=Arguments())
+    if args.dataset is not None and args.check:
+        parser.error("--check applies only to the bundled seed corpus")
     try:
-        report = evaluate(args.split)
-        report["seed_targets"] = {
-            "minimum_top1": TOP1_TARGET,
-            "maximum_unsupported_false_positive_rate": FALSE_POSITIVE_TARGET,
-            "met": meets_seed_targets(report["metrics"]),
-        }
+        report = evaluate(
+            args.split,
+            dataset_path=args.dataset if args.dataset is not None else DATASET,
+        )
+        if args.dataset is None:
+            report["seed_targets"] = {
+                "minimum_top1": TOP1_TARGET,
+                "maximum_unsupported_false_positive_rate": FALSE_POSITIVE_TARGET,
+                "met": meets_seed_targets(report["metrics"]),
+            }
         text = json.dumps(report, indent=2) + "\n"
         if args.output is not None:
             with args.output.open("x", encoding="utf-8") as output:
@@ -126,7 +154,7 @@ def main(argv: list[str] | None = None) -> int:
             )
         else:
             print(text, end="")
-        return 1 if args.check and not report["seed_targets"]["met"] else 0
+        return 1 if args.check and not meets_seed_targets(report["metrics"]) else 0
     except (OSError, ValueError) as error:
         print(f"Retrieval benchmark error: {error}", file=sys.stderr)
         return 1

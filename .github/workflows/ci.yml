@@ -73,6 +73,16 @@ jobs:
         run: uv run --python 3.12 python -m evals.run calibrate --output "$RUNNER_TEMP/calibration.json"
       - name: Check the small retrieval regression corpus
         run: uv run --python 3.12 python -m evals.search --split validation --check --output "$RUNNER_TEMP/retrieval-validation.json"
+      - name: Preserve evaluation reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evaluation-reports
+          path: |
+            ${{ runner.temp }}/calibration.json
+            ${{ runner.temp }}/retrieval-validation.json
+          if-no-files-found: warn
+          retention-days: 14
       - run: uv build
       - name: Smoke-test the installed wheel outside the checkout
         run: |
