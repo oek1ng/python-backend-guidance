@@ -1,0 +1,86 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  PBG_POSTGRES_DSN: postgresql://postgres:guidance@127.0.0.1:5432/guidance
+  PBG_AMQP_URL: amqp://guest:guest@127.0.0.1:5672/%2F
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_PASSWORD: guidance
+          POSTGRES_DB: guidance
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres -d guidance"
+          --health-interval 5s --health-timeout 5s --health-retries 20
+      rabbitmq:
+        image: rabbitmq:4.1-alpine
+        ports: ["5672:5672"]
+        options: >-
+          --health-cmd "rabbitmq-diagnostics -q ping"
+          --health-interval 5s --health-timeout 5s --health-retries 20
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.12", "3.13", "3.14"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.12.3"
+      - run: uv sync --locked --group dev --python "${{ matrix.python }}"
+      - run: uv run --python "${{ matrix.python }}" pytest
+
+  quality-and-package:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_PASSWORD: guidance
+          POSTGRES_DB: guidance
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres -d guidance"
+          --health-interval 5s --health-timeout 5s --health-retries 20
+      rabbitmq:
+        image: rabbitmq:4.1-alpine
+        ports: ["5672:5672"]
+        options: >-
+          --health-cmd "rabbitmq-diagnostics -q ping"
+          --health-interval 5s --health-timeout 5s --health-retries 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.12.3"
+      - run: uv sync --locked --group dev --python 3.12
+      - run: uv run --python 3.12 ruff check .
+      - run: uv run --python 3.12 ruff format --check .
+      - run: uv run --python 3.12 pyrefly check
+      - name: Calibrate public contracts against references and known defects
+        run: uv run --python 3.12 python -m evals.run calibrate --output "$RUNNER_TEMP/calibration.json"
+      - name: Check the small retrieval regression corpus
+        run: uv run --python 3.12 python -m evals.search --split validation --check --output "$RUNNER_TEMP/retrieval-validation.json"
+      - run: uv build
+      - name: Smoke-test the installed wheel outside the checkout
+        run: |
+          uv venv --python 3.12 "$RUNNER_TEMP/pbg-smoke"
+          uv pip install --python "$RUNNER_TEMP/pbg-smoke/bin/python" dist/*.whl
+          cd "$RUNNER_TEMP"
+          "$RUNNER_TEMP/pbg-smoke/bin/python" -m python_backend_guidance search "bounded concurrency"
+          "$RUNNER_TEMP/pbg-smoke/bin/python" -m python_backend_guidance retrieve bound-concurrent-work
+          "$RUNNER_TEMP/pbg-smoke/bin/python" -m python_backend_guidance search "PostgreSQL lost updates"
+          "$RUNNER_TEMP/pbg-smoke/bin/python" -m python_backend_guidance retrieve transactional-outbox
+          "$RUNNER_TEMP/pbg-smoke/bin/python" -m python_backend_guidance export-skill --output "$RUNNER_TEMP/exported-skill/SKILL.md"

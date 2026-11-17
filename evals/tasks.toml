@@ -1,0 +1,441 @@
+schema_version = 1
+
+[tasks.bound-concurrent-work]
+reference = "examples/bound_concurrent_work.py"
+entrypoint = "consume_bounded"
+tests = "tests/test_bound_concurrent_work.py"
+prompt = "evals/contracts.md"
+alternatives = ["evals/candidates/alternatives.py"]
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_saturated_workers_apply_backpressure_to_input"}]
+
+[tasks.apply-operation-deadline]
+reference = "examples/apply_operation_deadline.py"
+entrypoint = "fetch_and_store"
+tests = "tests/test_apply_operation_deadline.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_expired_budget_does_not_start_work"}]
+
+[tasks.retry-transient-reads]
+reference = "examples/retry_transient_reads.py"
+entrypoint = "retry_read"
+tests = "tests/test_retry_read.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_nontransient_error_is_not_retried"}]
+
+[tasks.own-child-tasks]
+reference = "examples/own_child_tasks.py"
+entrypoint = "run_related"
+tests = "tests/test_backend_concurrency.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_sibling_failure_waits_for_cleanup"}]
+
+[tasks.offload-blocking-io]
+reference = "examples/offload_blocking_io.py"
+entrypoint = "call_blocking"
+tests = "tests/test_backend_concurrency.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_loop_progresses_while_blocking_io_waits"}]
+
+[tasks.stop-thread-work]
+reference = "examples/stop_thread_work.py"
+entrypoint = "run_stoppable"
+tests = "tests/test_backend_concurrency.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_cancel_joins_cooperatively_stopped_thread"}]
+
+[tasks.isolate-request-context]
+reference = "examples/isolate_request_context.py"
+entrypoint = "request_scope"
+tests = "tests/test_backend_concurrency.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_context_restored_after_error"}]
+
+[tasks.deduplicate-mutations]
+reference = "examples/deduplicate_mutations.py"
+entrypoint = "credit_once"
+tests = "tests/integration/test_database_contracts.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_repeated_mutation_returns_original_result"}]
+
+[tasks.drain-on-shutdown]
+reference = "examples/drain_on_shutdown.py"
+entrypoint = "drain"
+tests = "tests/test_backend_concurrency.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_shutdown_cancels_and_awaits_stragglers"}]
+
+[tasks.reject-overload]
+reference = "examples/reject_overload.py"
+entrypoint = "Admission"
+tests = "tests/test_backend_concurrency.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_saturated_admission_rejects_without_waiting"}]
+
+[tasks.reuse-http-clients]
+reference = "examples/reuse_http_clients.py"
+entrypoint = "fetch_batch"
+tests = "tests/integration/test_http_contracts.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_batch_reuses_a_connection"}]
+
+[tasks.set-http-timeouts]
+reference = "examples/set_http_timeouts.py"
+entrypoint = "make_http_client"
+tests = "tests/integration/test_http_contracts.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_stalled_body_hits_read_timeout"}]
+
+[tasks.bound-response-bytes]
+reference = "examples/bound_response_bytes.py"
+entrypoint = "read_limited"
+tests = "tests/integration/test_http_contracts.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_decoded_response_is_bounded"}]
+
+[tasks.verify-tls]
+reference = "examples/verify_tls.py"
+entrypoint = "fetch_verified"
+tests = "tests/integration/test_http_contracts.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_untrusted_tls_is_rejected"}]
+
+[tasks.control-redirects]
+reference = "examples/control_redirects.py"
+entrypoint = "fetch_private"
+tests = "tests/integration/test_http_contracts.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_credentialed_redirect_is_not_followed"}]
+
+[tasks.bound-transactions]
+reference = "examples/bound_transactions.py"
+entrypoint = "transfer"
+tests = "tests/integration/test_database_contracts.py"
+prompt = "evals/contracts.md"
+defects = [
+    {solution = "evals/candidates/defects.py", must_fail = "test_failed_transfer_rolls_back_debit"},
+    {solution = "evals/candidates/uncommitted_transfer.py", must_fail = "test_transfer_commits_both_changes"},
+]
+
+[tasks.parameterize-sql]
+reference = "examples/parameterize_sql.py"
+entrypoint = "find_user"
+tests = "tests/integration/test_database_contracts.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_sql_metacharacters_are_data"}]
+
+[tasks.enforce-database-constraints]
+reference = "examples/enforce_database_constraints.py"
+entrypoint = "create_reservations"
+tests = "tests/integration/test_database_contracts.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_duplicate_reference_is_rejected_by_database"}]
+
+[tasks.prevent-lost-updates]
+reference = "examples/prevent_lost_updates.py"
+entrypoint = "update_document"
+tests = "tests/integration/test_database_contracts.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_stale_writer_cannot_overwrite_committed_edit"}]
+
+[tasks.retry-whole-transactions]
+reference = "examples/retry_whole_transactions.py"
+entrypoint = "run_transaction"
+tests = "tests/integration/test_database_contracts.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_serialization_conflict_restarts_the_read"}]
+
+[tasks.batch-related-queries]
+reference = "examples/batch_related_queries.py"
+entrypoint = "load_items"
+tests = "tests/integration/test_database_contracts.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_batch_avoids_one_query_per_parent"}]
+
+[tasks.stable-cursor-pagination]
+reference = "examples/stable_cursor_pagination.py"
+entrypoint = "page"
+tests = "tests/integration/test_database_contracts.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_equal_timestamps_do_not_skip_rows"}]
+
+[tasks.inspect-query-plans]
+reference = "examples/inspect_query_plans.py"
+entrypoint = "explain_lookup"
+tests = "tests/integration/test_database_contracts.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_plan_is_returned_without_query_execution"}]
+
+[tasks.budget-connection-pools]
+reference = "examples/budget_connection_pools.py"
+entrypoint = "open_pool"
+tests = "tests/integration/test_database_contracts.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_pool_respects_per_process_budget"}]
+
+[tasks.expand-contract-migrations]
+reference = "examples/expand_contract_migrations.py"
+entrypoint = "expand_profile"
+tests = "tests/integration/test_database_contracts.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_expansion_keeps_old_writers_compatible", related_failures = ["test_new_reader_prefers_backfilled_name"]}]
+
+[tasks.ack-after-commit]
+reference = "examples/ack_after_commit.py"
+entrypoint = "process_delivery"
+tests = "tests/integration/test_message_contracts.py"
+prompt = "evals/contracts.md"
+defects = [
+    {solution = "evals/candidates/defects.py", must_fail = "test_commit_failure_leaves_delivery_unacknowledged"},
+    {solution = "evals/candidates/unacknowledged_delivery.py", must_fail = "test_committed_effect_is_acknowledged"},
+]
+
+[tasks.deduplicate-deliveries]
+reference = "examples/deduplicate_deliveries.py"
+entrypoint = "apply_message"
+tests = "tests/integration/test_message_contracts.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_redelivery_has_one_local_effect"}]
+
+[tasks.transactional-outbox]
+reference = "examples/transactional_outbox.py"
+entrypoint = "change_and_enqueue"
+tests = "tests/integration/test_message_contracts.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_failed_outbox_insert_rolls_back_business_change"}]
+
+[tasks.quarantine-poison-messages]
+reference = "examples/quarantine_poison_messages.py"
+entrypoint = "consume_json"
+tests = "tests/integration/test_message_contracts.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_invalid_message_reaches_dead_letter_queue"}]
+
+[tasks.version-message-payloads]
+reference = "examples/version_message_payloads.py"
+entrypoint = "decode_event"
+tests = "tests/test_backend_data.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_unknown_message_version_is_rejected"}]
+
+[tasks.scope-cache-keys]
+reference = "examples/scope_cache_keys.py"
+entrypoint = "cache_key"
+tests = "tests/test_backend_cache.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_cache_key_separates_tenants_and_delimiters"}]
+
+[tasks.expire-cached-values]
+reference = "examples/expire_cached_values.py"
+entrypoint = "TTLCache"
+tests = "tests/test_backend_cache.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_expiry_boundary_is_a_miss"}]
+
+[tasks.coalesce-cache-misses]
+reference = "examples/coalesce_cache_misses.py"
+entrypoint = "SingleFlight"
+tests = "tests/test_backend_cache.py"
+prompt = "evals/contracts.md"
+alternatives = ["evals/candidates/alternatives.py"]
+defects = [
+    {solution = "evals/candidates/defects.py", must_fail = "test_simultaneous_misses_share_one_load"},
+    {solution = "evals/candidates/singleflight_retains_failure.py", must_fail = "test_failed_load_can_be_retried"},
+    {solution = "evals/candidates/singleflight_without_join.py", must_fail = "test_close_awaits_loader_cleanup"},
+]
+
+[tasks.distinguish-cache-misses]
+reference = "examples/distinguish_cache_misses.py"
+entrypoint = "lookup"
+tests = "tests/test_backend_cache.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_backend_failure_is_not_cached_as_absence"}]
+
+[tasks.fence-stale-writers]
+reference = "examples/fence_stale_writers.py"
+entrypoint = "fenced_write"
+tests = "tests/integration/test_database_contracts.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_stale_token_cannot_overwrite_new_owner"}]
+
+[tasks.validate-boundary-data]
+reference = "examples/validate_boundary_data.py"
+entrypoint = "parse_order"
+tests = "tests/test_backend_data.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_boolean_is_not_an_order_quantity"}]
+
+[tasks.bound-incoming-bodies]
+reference = "examples/bound_incoming_bodies.py"
+entrypoint = "collect_body"
+tests = "tests/test_backend_data.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_chunked_request_cannot_bypass_limit"}]
+
+[tasks.distinguish-patch-null]
+reference = "examples/distinguish_patch_null.py"
+entrypoint = "patch_profile"
+tests = "tests/test_backend_data.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_explicit_null_clears_a_field"}]
+
+[tasks.use-aware-timestamps]
+reference = "examples/use_aware_timestamps.py"
+entrypoint = "parse_instant"
+tests = "tests/test_backend_data.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_naive_timestamp_is_rejected"}]
+
+[tasks.quantize-money]
+reference = "examples/quantize_money.py"
+entrypoint = "money"
+tests = "tests/test_backend_data.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_decimal_rounding_is_explicit"}]
+
+[tasks.authorize-objects]
+reference = "examples/authorize_objects.py"
+entrypoint = "owned_document"
+tests = "tests/integration/test_database_contracts.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_other_owner_is_denied"}]
+
+[tasks.isolate-tenant-queries]
+reference = "examples/isolate_tenant_queries.py"
+entrypoint = "tenant_document"
+tests = "tests/integration/test_database_contracts.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_same_local_id_does_not_cross_tenants", related_failures = ["test_missing_tenant_is_denied"]}]
+
+[tasks.restrict-outbound-destinations]
+reference = "examples/restrict_outbound_destinations.py"
+entrypoint = "fetch_destination"
+tests = "tests/integration/test_http_contracts.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_caller_cannot_supply_an_arbitrary_url"}]
+
+[tasks.confine-file-access]
+reference = "examples/confine_file_access.py"
+entrypoint = "read_owned_file"
+tests = "tests/test_backend_security.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_symlink_cannot_escape_directory"}]
+
+[tasks.verify-token-claims]
+reference = "examples/verify_token_claims.py"
+entrypoint = "verify_token"
+tests = "tests/test_backend_security.py"
+prompt = "evals/contracts.md"
+defects = [
+    {solution = "evals/candidates/defects.py", must_fail = "test_wrong_token_audience_is_rejected"},
+    {solution = "evals/candidates/jwt_without_signature.py", must_fail = "test_wrong_signature_is_rejected"},
+    {solution = "evals/candidates/jwt_without_issuer.py", must_fail = "test_wrong_token_issuer_is_rejected"},
+    {solution = "evals/candidates/jwt_extra_algorithm.py", must_fail = "test_unapproved_algorithm_is_rejected"},
+]
+
+[tasks.allowlist-log-fields]
+reference = "examples/allowlist_log_fields.py"
+entrypoint = "request_event"
+tests = "tests/test_backend_observability.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_request_credentials_are_not_logged", related_failures = ["test_unknown_headers_are_excluded"]}]
+
+[tasks.correlate-request-logs]
+reference = "examples/correlate_request_logs.py"
+entrypoint = "CorrelationFilter"
+tests = "tests/test_backend_observability.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_log_record_captures_current_request"}]
+
+[tasks.bound-metric-labels]
+reference = "examples/bound_metric_labels.py"
+entrypoint = "metric_labels"
+tests = "tests/test_backend_observability.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_arbitrary_paths_do_not_create_labels"}]
+
+[tasks.preserve-error-causes]
+reference = "examples/preserve_error_causes.py"
+entrypoint = "read_backend"
+tests = "tests/test_backend_observability.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_public_error_retains_internal_cause"}]
+
+[tasks.separate-health-probes]
+reference = "examples/separate_health_probes.py"
+entrypoint = "health"
+tests = "tests/test_backend_observability.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_dependency_outage_does_not_fail_liveness"}]
+
+[tasks.avoid-shell-interpolation]
+reference = "examples/avoid_shell_interpolation.py"
+entrypoint = "run_tool"
+tests = "tests/test_backend_files.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_metacharacters_remain_one_literal_argument"}]
+
+[tasks.bound-subprocess-resources]
+reference = "examples/bound_subprocess_resources.py"
+entrypoint = "run_bounded"
+tests = "tests/test_backend_files.py"
+prompt = "evals/contracts.md"
+defects = [
+    {solution = "evals/candidates/defects.py", must_fail = "test_subprocess_output_limit_is_enforced"},
+    {solution = "evals/candidates/subprocess_leader_only.py", must_fail = "test_subprocess_group_is_terminated_and_child_reaped[timeout]", related_failures = ["test_subprocess_group_is_terminated_and_child_reaped[cancel]"]},
+]
+
+[tasks.stream-large-files]
+reference = "examples/stream_large_files.py"
+entrypoint = "copy_stream"
+tests = "tests/test_backend_files.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_file_limit_prevents_full_write"}]
+
+[tasks.replace-files-atomically]
+reference = "examples/replace_files_atomically.py"
+entrypoint = "replace_file"
+tests = "tests/test_backend_files.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_pre_replace_failure_preserves_old_file"}]
+
+[tasks.own-temporary-files]
+reference = "examples/own_temporary_files.py"
+entrypoint = "with_workspace"
+tests = "tests/test_backend_files.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_workspace_is_removed_on_error"}]
+
+[tasks.validate-startup-configuration]
+reference = "examples/validate_startup_configuration.py"
+entrypoint = "read_settings"
+tests = "tests/test_backend_lifecycle.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_false_string_is_not_truthy_debug"}]
+
+[tasks.own-resource-lifetimes]
+reference = "examples/own_resource_lifetimes.py"
+entrypoint = "owned_resource"
+tests = "tests/test_backend_lifecycle.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_owned_resource_closes_on_error"}]
+
+[tasks.unwind-partial-startup]
+reference = "examples/unwind_partial_startup.py"
+entrypoint = "open_resources"
+tests = "tests/test_backend_lifecycle.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_second_acquisition_failure_closes_first_resource"}]
+
+[tasks.scope-process-resources]
+reference = "examples/scope_process_resources.py"
+entrypoint = "worker_client"
+tests = "tests/integration/test_http_contracts.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_worker_client_closes_on_exit"}]
+
+[tasks.serialize-migration-runners]
+reference = "examples/serialize_migration_runners.py"
+entrypoint = "run_migration"
+tests = "tests/integration/test_database_contracts.py"
+prompt = "evals/contracts.md"
+defects = [{solution = "evals/candidates/defects.py", must_fail = "test_second_migration_runner_is_rejected"}]

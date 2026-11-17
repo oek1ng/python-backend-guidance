@@ -1,0 +1,1352 @@
+{
+  "report_schema": 1,
+  "kind": "direct-guide-agent-pilot",
+  "model": "openai/gpt-6.1-sol#medium",
+  "opencode_version": "2.3.0",
+  "wall_timeout_seconds": 300,
+  "max_model_steps": 8,
+  "manifest_sha256": "0cb06f31aadd7ccd0fb7c30c613448c9855bc6189acb8b4f26325e5d637325ba",
+  "snapshot_file_hashes": {
+    "LICENSE": "b02188800cb7cdfdbe2facaa7fa057ffc5f8c8d6c3838db7fb865f1d7cfbb762",
+    "LICENSE-DOCS.md": "e0d40507ec2b633f6d24a1a44dc466aaa057e07ee87fef91ebe1376e8fc45a07",
+    "README.md": "261d81d21265d5cdad65791260fcc4e380475155e584589f38309a6dc9a06902",
+    "evals/README.md": "0a291e2e18f2444c5845200ad7b245dc4eb0c87b36f4a77c74f6e48c0c5f4703",
+    "evals/candidates/alternatives.py": "bce83a047a11a8b0434e9b14ffe33a29a965e36b22f7aec2ffaa23b650d266ec",
+    "evals/candidates/defects.py": "46897ffa10dffdc79601ee36bab829eebde9eb869bf6b185c8fdc1f24c3f955e",
+    "evals/candidates/jwt_extra_algorithm.py": "acf084b2c64fe0d549663428e7885283c6cfb0ffa1b2b4a6589cfac7f07eefa6",
+    "evals/candidates/jwt_without_issuer.py": "cab7f3c2eb422cd50059ee4de3836f4e7d794de2b74d7ac45986ff8a9697a18f",
+    "evals/candidates/jwt_without_signature.py": "4667278bdbb82aacfa5e932409b0a75fd9187edc34da30b67be2fec570248e71",
+    "evals/candidates/singleflight_retains_failure.py": "f2e05f105920993e9c371952153ef4d69155607460013beb4a15fb8bdac602e1",
+    "evals/candidates/singleflight_without_join.py": "af1574fb2a16b529cb9d41fe762b830e95cb686269192870f2b641a8f5694cba",
+    "evals/candidates/subprocess_leader_only.py": "805243007cf6c1089306447716bd7eafbbcd514113e1c245b18cefdd1ab4f9b1",
+    "evals/candidates/unacknowledged_delivery.py": "18767a08759f5b994264e7933c4e389029a0ecdf89d8d2e6c8b718db5b5768ae",
+    "evals/candidates/uncommitted_transfer.py": "ed8cf29fbfbf896aee362df1a9fae45a0141b8b95844b09aec71093f2897584e",
+    "evals/contracts.md": "02da87ec7b19f3bf4a0073b6cb9a410bdb5a590f41cdb864c20dac6eb1471e24",
+    "evals/models.py": "e5630f7c46bdf33f3480af1d3c4ead6dc1be63022aff33722a95a69ee454afab",
+    "evals/run.py": "76b76a25beca252d374ff7a0f863960e5f81b5e6bf2ac515a820388781e3cb81",
+    "evals/search/queries.toml": "c383e7f813dc2c3dfb84ab3084d04aeadeff7a142238e01e50c867cddfc9ad79",
+    "evals/search.py": "bd64d7c5ac6187d32e6e71df4eb0e7aa45f4bf2e527196c8be1f23e34318031d",
+    "evals/sync_examples.py": "45dfd9986731f5723a23da33861b52c6e12f609b3904c694b957f1998d3ffeaf",
+    "evals/tasks.toml": "c703fd9357497e74837daf7746e3ef061ace31e7447369fe8dc3d3412a45b402",
+    "examples/ack_after_commit.py": "c0b16fbd16665351c907e8792ee27b56518057ec0d8f33267cb91dc8db5c86e1",
+    "examples/allowlist_log_fields.py": "74cf50ce5ce924f648cd50befd11369097371837e4fa8c0e273e0b8dc77d9e9f",
+    "examples/apply_operation_deadline.py": "2cf6f1d23f82ce6da610d82f24962b03d3d0a101cb4d4e26d7dcea3ea0c543dc",
+    "examples/authorize_objects.py": "5bc2bf9414150f994410976876f91c0c3b16392be861f74d2276ab7de88ca7ca",
+    "examples/avoid_shell_interpolation.py": "53e35f87524ff7baba874f97f696d3903f6fe71b8eea128459197f239d436aae",
+    "examples/batch_related_queries.py": "7611effe25fc87cd961bf20b4fbe25ee43d9741e4f684ded17a3d5c238468eda",
+    "examples/bound_concurrent_work.py": "e16a6de50175672e37d8a55a23ed81578587fe1b5eaa16b7a6c72cc43804ee33",
+    "examples/bound_incoming_bodies.py": "f409874ee13ffe8c1d634a3caad6317bafe5a32c45cafdc1aecff99a27f47c9c",
+    "examples/bound_metric_labels.py": "6b69510a157a7bd2ff753c57a8d77eaaa95d1f5563a0984bba1fc2503f39c517",
+    "examples/bound_response_bytes.py": "6812af40ab5b810d992321678d817ae7f6ffbb9db7e829c657e360e6b759a4c3",
+    "examples/bound_subprocess_resources.py": "944964cda4c733ad30753e73e3dfb6673c73fabe1e0d506ff3576d6b9e03adc2",
+    "examples/bound_transactions.py": "95c17b31398c7a305d414e18441de56ed4bf4d8ed04b3f6c600bde8a0e22435f",
+    "examples/budget_connection_pools.py": "9916e9b52c9c345b59d923970417ee0e2e07539502282998d23ba36f35a7c35a",
+    "examples/coalesce_cache_misses.py": "847b1c76c9d84ab816f15a340afcf64f6e3fc9c18393d5e13b7b5fc2d2a18bea",
+    "examples/confine_file_access.py": "b4e0625a59e008996f1360e35b8dfc0a870ea3e9f3cda77470837f9221cdb91c",
+    "examples/control_redirects.py": "257699d26a96fc5e4a7003857a1265fef597d6531ae67a2db16032517389f756",
+    "examples/correlate_request_logs.py": "4b681fe0c3cabfc2ee00a905bc1812c7060d0b9c149f3b1070b58a380379b7cb",
+    "examples/deduplicate_deliveries.py": "cd06982c295d8bdd25dc36f7aa1dbd160393db7b867987e86a6ece77119424f1",
+    "examples/deduplicate_mutations.py": "9b2d0f7deab2d6d73f18c158a9e6e2a837d2a71a492335d43c4251a75bd4f0a4",
+    "examples/distinguish_cache_misses.py": "096ce256752c8a5115d71ca28b04e3999c367e1260ff959c726cb6c5d365abc8",
+    "examples/distinguish_patch_null.py": "1000578c9fa2cee64c2331e3836ed29bcf19a6978fb58d1f2784dc23b823fced",
+    "examples/drain_on_shutdown.py": "210175a8e58ba47b0aaa65a707aae2b6c8987c8f965df2cb33013499bb44ccb2",
+    "examples/enforce_database_constraints.py": "0610fd424a761be33a1302dc77a60d17f4faf932655a987d0d31e622d17837de",
+    "examples/expand_contract_migrations.py": "c9be0151bba0c72701783e53422449ac990e39987196914345eeb8d7ca0bdd1d",
+    "examples/expire_cached_values.py": "bc570493374d0b0581eb2166664a6e91bae5b63512e3cb6d5c20a3ad00eded85",
+    "examples/fence_stale_writers.py": "98955284b216cb1a21db85fc0524264aeb0b878916cd44a9b10ed1827824e2d7",
+    "examples/inspect_query_plans.py": "138734099e6c0145e57a29f92df90f4d69624f8715b3960633fab38736e137f9",
+    "examples/isolate_request_context.py": "053b237a187915da3cb6f862320d75cb386ba5aeb467ef7170aa22cdcc7710b8",
+    "examples/isolate_tenant_queries.py": "9b11352a4491b3d53ae425748b82f25a8c8bfc02079022d038661195d7b5049a",
+    "examples/offload_blocking_io.py": "0a9765bbad63ed2ffe3c61ba1bd74d56b3e2308f47518c8e4d0abd3cf74f28ec",
+    "examples/own_child_tasks.py": "992974d08c7e7f71b4e36798a404e258c8611ed36c711b24db3b27b222fdbf00",
+    "examples/own_resource_lifetimes.py": "50fcd0a2858a07935ae6bb9866ad0cc47d4eb27f8b396dbd6d0a835f0293acdf",
+    "examples/own_temporary_files.py": "2c0aad6936bc4c6045031140e8b87a872f055065ac5fa6dd632d232b97548f48",
+    "examples/parameterize_sql.py": "557f5c05d1e660973324f8e0b9629553b5a91852bca6ca14b0448c407d148c42",
+    "examples/preserve_error_causes.py": "14d08af57f0f627bccfd3009886e382982507fdc393d4b20a5a40e7e796a10e7",
+    "examples/prevent_lost_updates.py": "597cc66f153ebb772b6aa435f547a7745b5582b9b57885bcc19d14e2f1728aad",
+    "examples/quantize_money.py": "7676fe3ffc7a8ccb5e97f8298442d0e18a1de4eb5192559e8e77853f6850728d",
+    "examples/quarantine_poison_messages.py": "732a946c8e62776293effd5daeda319469340c907823de4ef14a3b44c948416a",
+    "examples/reject_overload.py": "769f4926319781674f1f5213f00fb7e9d053d7db46a85328703e6f5a25fa2544",
+    "examples/replace_files_atomically.py": "1fa6c8838572b7916ea2f33a52d495e54ae1d74a3376e592a00669318ebf1763",
+    "examples/restrict_outbound_destinations.py": "964920b4d8439fbc9f8300f87e635ae26dbc96590c7f717cf198118f2f83030f",
+    "examples/retry_transient_reads.py": "fa365dae7aba55276c4778fae84f4b334af46fe34b645811297018a226ab4bd3",
+    "examples/retry_whole_transactions.py": "cc404149b829c4c34e0797ed2e92b06ef3575f3fb6ac81a4614f938e8cbc9e0d",
+    "examples/reuse_http_clients.py": "a0fe53a3cb2b4d0235ce4651382856c9d70cbb1c4c00bd001ebf11e0317f8f48",
+    "examples/scope_cache_keys.py": "c6798e4303de2712ec1037089674fa4789c716d43d621e546dd0528e1dc14f5a",
+    "examples/scope_process_resources.py": "c98ebe7c5e60b8ea7ad80941e9c02e1ba833bc2adb7becf7552b98d22d725c50",
+    "examples/separate_health_probes.py": "1b133a551cee3c6b968ef195aa1d73c85a9fc09e4ed5c2184e86a56e2490aa2d",
+    "examples/serialize_migration_runners.py": "5c9854e9df98adf15f22745fe07d66a065717b6d8c9125675129916ccb8eaa07",
+    "examples/set_http_timeouts.py": "97aaec399b08189d393a921804bd729c3af14069b11e839b31f2057833376ad7",
+    "examples/stable_cursor_pagination.py": "e9b3bfb1d6d7d439044ff6f18e41d97677e09493a07c14a52f3237351583d70a",
+    "examples/stop_thread_work.py": "87f8a7c099e8a2a92b8b0ac664c3d993f01a0dbf8191ec015d4208742ca9163e",
+    "examples/stream_large_files.py": "6431ee6df15b99481d79267c03ceea579b6a592ecd8e43df3880f48a3f50dca6",
+    "examples/transactional_outbox.py": "8d2265dce98380af972560ec63dc4fe103f702b31c0dfa34a48a944730dfeb26",
+    "examples/unwind_partial_startup.py": "7edd59e309e37d564baee0c6a57118ae130653cfce7513c946c99b105a92f461",
+    "examples/use_aware_timestamps.py": "3b75ee119d6d2ad761a74693712e763dc5f396e4a14df6ea7eaa25c142196b8d",
+    "examples/validate_boundary_data.py": "b53efceb4e34f92617d198f5725f72aaa89739a6e64f574094fad973a447ac71",
+    "examples/validate_startup_configuration.py": "8802f8384ff9fdd93721436498bed56b306f5d81ba2a41b328004e750e127404",
+    "examples/verify_tls.py": "d9d09fd80c90d286ec7c9602818dcb3648cb94cd4d97f4e7286a869fa81443fe",
+    "examples/verify_token_claims.py": "7c85d322a380f0d3b4c79d69e9c585474c2b2aee72e7130b394d09475f2910d5",
+    "examples/version_message_payloads.py": "e29f2567da0b2fc2ad7c5a1dcbdeebf4edf23aeab66f547dee946dce5e6fc805",
+    "pyproject.toml": "24688734ea0975fe78bf2aa29954726a375ff278e16158ee906e311f5f87e4dc",
+    "skills/python-backend-guidance/SKILL.md": "9df5cc70578dfd15e0e7a0e2b021470cff3500ddfb5508d104a86adbb2880fb0",
+    "src/python_backend_guidance/__init__.py": "1fb26cfc677337bb90d27609fc152f78d80722359a3ba5122fe7cea5484799f2",
+    "src/python_backend_guidance/__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+    "src/python_backend_guidance/catalog.py": "957fdeb76cfc9763a05213c8b96b208210f723f080dac373216a118043324205",
+    "src/python_backend_guidance/cli.py": "b0b0def03aae7a6ce74955cb2661d0199bdd509a604fe7402526ce21a33b7305",
+    "src/python_backend_guidance/guide.py": "fc5652fabbe1c9ea09009b9694c32c6b9bdcdd26b1502cc5216a1f0e93aad83d",
+    "src/python_backend_guidance/guides/ack-after-commit.md": "1755ff72f82925bd841e7bdee83647eb4c7bbf4e1ebe0f7ee336161479bc2651",
+    "src/python_backend_guidance/guides/allowlist-log-fields.md": "09514a78e21051e9f3ed3d359d5a73a3ba46f58d56d5b6acacf9caf516a95e85",
+    "src/python_backend_guidance/guides/apply-operation-deadline.md": "bfe28b3810343ab7ecb9796c32f592db92415411a21d9d504c70e0ea72b9fd82",
+    "src/python_backend_guidance/guides/authorize-objects.md": "b4a8330b12fe172bc6dc43f9692a2632a5e987022db3278b36b31c6c5702a8aa",
+    "src/python_backend_guidance/guides/avoid-shell-interpolation.md": "530f22619a9d7a66ff660233832907fb5d950bf0dc96339a0c2db09e2b25c54c",
+    "src/python_backend_guidance/guides/batch-related-queries.md": "2910e996ba3674a2dc0d4774f3cc0efbd558467bbffcbdf347a7c29a04175d44",
+    "src/python_backend_guidance/guides/bound-concurrent-work.md": "c91c6899bb8fa7e2039bbec281794190de7a66df7adebaf0e127877cf253a013",
+    "src/python_backend_guidance/guides/bound-incoming-bodies.md": "2559d3b74412aee215f4404b2a6893189bfe79ff43e150c6dd763f10177b8fd4",
+    "src/python_backend_guidance/guides/bound-metric-labels.md": "7faecbd99f15eb93ced7dcbecd59879435d5669b0ba550ab62083d45822680c9",
+    "src/python_backend_guidance/guides/bound-response-bytes.md": "b220feaa6617cc2bd489f4001833af1d6c9117acb3b1536cd17a155ff595a91a",
+    "src/python_backend_guidance/guides/bound-subprocess-resources.md": "fad95bb532b75e1e716221500af7dcef5b17a336fda85c8fcfee6081371ed3ce",
+    "src/python_backend_guidance/guides/bound-transactions.md": "7d2f9ba13905df62a68a64e58d6a0e38251dd1b675aa2ed70080e989db26ab4e",
+    "src/python_backend_guidance/guides/budget-connection-pools.md": "a8cc04724dfcbd117bd451f81bab921ce5f4da874d3b53e7ea14dce563c9dd76",
+    "src/python_backend_guidance/guides/coalesce-cache-misses.md": "9400e173c6d5d89d4f3760a3e7aa660a9336de41c831bb41d037622aaa2179a6",
+    "src/python_backend_guidance/guides/confine-file-access.md": "016cb02b8fe8a76012187ba18ec0b37d5b047db428607ebd4dcaea65b24211a7",
+    "src/python_backend_guidance/guides/control-redirects.md": "202580263c8435329dc857ceb75051dc6ffca4edbe7f62d3ebe5c8377cf41f98",
+    "src/python_backend_guidance/guides/correlate-request-logs.md": "ac6e9d0bbfd5928f26dbb28b9c7b3f9bdfcaad3aa0a49e191fe3a3aae17016f2",
+    "src/python_backend_guidance/guides/deduplicate-deliveries.md": "2cf3b396b4e766dd92b6fb9b41d68ec8f5a2180ce9814eb13796d040021640a9",
+    "src/python_backend_guidance/guides/deduplicate-mutations.md": "2d21191e6903a4f83e1431ca82be4a0686c1c1e46d2329387955076d1b82e615",
+    "src/python_backend_guidance/guides/distinguish-cache-misses.md": "ab5eaff786367194bcc120f61c97aa1743db211fb3e7783c57e8edf25ac2825f",
+    "src/python_backend_guidance/guides/distinguish-patch-null.md": "31a5c11efc2f13814d4553b70f0bb4c121838a7414bcccf0faa25bbee9ff3ee6",
+    "src/python_backend_guidance/guides/drain-on-shutdown.md": "8b367e4d0907f08b7ffdcbefa68e2b51641328476856b6b8fd961f28d31e3c7e",
+    "src/python_backend_guidance/guides/enforce-database-constraints.md": "b97f8e605bafc7561e61e7aed93effca57c34d98bd39c0a574dbfbf2446871f2",
+    "src/python_backend_guidance/guides/expand-contract-migrations.md": "d374064214a69dae65a384df42d62d048e71d6d04cd8cd19d416a8bdaa9e253b",
+    "src/python_backend_guidance/guides/expire-cached-values.md": "f5637bb5efe1c27a83fd69cb35301ac8eeb21c204631be1904d436630b6a6547",
+    "src/python_backend_guidance/guides/fence-stale-writers.md": "f598f55870b5ab6743d51340eea7afe8b7a49c113a8ad8a6d961c64e4662b439",
+    "src/python_backend_guidance/guides/inspect-query-plans.md": "592dff5c094e8c838ce576fab418bbc6b28b5dab9d9f38ff3d072ac782c0c3fa",
+    "src/python_backend_guidance/guides/isolate-request-context.md": "8315ee51daaa6f75a7aad85b0fc8d3453357fa2681af6d49349e32132440c9eb",
+    "src/python_backend_guidance/guides/isolate-tenant-queries.md": "3032e7d91827fdac983392caefc6dd8d66ec7639c51144b2988077ea03b1199b",
+    "src/python_backend_guidance/guides/offload-blocking-io.md": "4e56b5e509d24f1e42fc6c5b1ba39f1b264f39721bab3683cc686b41f000f05e",
+    "src/python_backend_guidance/guides/own-child-tasks.md": "966b559a6bed1e93ff712ab91c2c5898bc4f1dc8f87a0eab258150211767e087",
+    "src/python_backend_guidance/guides/own-resource-lifetimes.md": "d33c7f586b9b57afaeb83dedb6b8243034e0e1051993d0467a20d89b2e42f996",
+    "src/python_backend_guidance/guides/own-temporary-files.md": "999d26ec26de5983c7a8b094e22349342ed202d50e86b97d139fdc2a924a0332",
+    "src/python_backend_guidance/guides/parameterize-sql.md": "cf9de466ca02b7869480cab00a0b8a2fca24b3f0ef0aab1d4a78a61977d5f66c",
+    "src/python_backend_guidance/guides/preserve-error-causes.md": "76b0e9831b1c9c8bdcb02814d03b99709d086f6b8c8fdb69eee0587ca1793d28",
+    "src/python_backend_guidance/guides/prevent-lost-updates.md": "43d5bc54fed4ee9b12de470d180b17d55b180fbfa90c0937b5171f2a6fa7e2d7",
+    "src/python_backend_guidance/guides/quantize-money.md": "7dec1f75715f374208e9d78848a8527c03455de0a9623b2c406ae8226b8650b9",
+    "src/python_backend_guidance/guides/quarantine-poison-messages.md": "7819ef9d1b1b794063fdaa93cbde0883b7900f40f46cc429aef0d3a0eaa9e7e0",
+    "src/python_backend_guidance/guides/reject-overload.md": "7e9a55451b959b5cdfa201c1c5c26dfe39d845f11bc47b17000208b38ac6e1ea",
+    "src/python_backend_guidance/guides/replace-files-atomically.md": "5a3533a976c92ec68a916b1d4f80996cac99b99dbd2eb571f3244fc01afe0a67",
+    "src/python_backend_guidance/guides/restrict-outbound-destinations.md": "0133251b749039758afcce487f4afcb411d36b296f0b562d7b1a27c891d2eab6",
+    "src/python_backend_guidance/guides/retry-transient-reads.md": "2412a403c3ea788e2cfe020ca0fcc29af9541b9cdc435b190fe6fc785e73bd1b",
+    "src/python_backend_guidance/guides/retry-whole-transactions.md": "c9cb36c3742f74b4e467995ba300828c78373152bf82535a53a1898392c69220",
+    "src/python_backend_guidance/guides/reuse-http-clients.md": "4d0cca82e890a6140599a3c71dd59ba133e9b8a60562b866b70e3976e9d97896",
+    "src/python_backend_guidance/guides/scope-cache-keys.md": "d872cfd2f5c16cb536735d57a7c7b0ab480b9f9af31a395b16c33761c0c529ff",
+    "src/python_backend_guidance/guides/scope-process-resources.md": "0bb412d6168e467cfaffbe5700ab302161252d2dff8aa6d22a6412f69cda8b72",
+    "src/python_backend_guidance/guides/separate-health-probes.md": "72871a7f6ff938d14ed33186eea505afeb16c6bd061eb351f1840c946772134f",
+    "src/python_backend_guidance/guides/serialize-migration-runners.md": "0beebad3a32fa0114dd2b13ca16e55844b208a2e6f011765b273349f35575080",
+    "src/python_backend_guidance/guides/set-http-timeouts.md": "126535469aa78926bbfa42e014c71cab1986ad7c249940533bf88e458eb1217b",
+    "src/python_backend_guidance/guides/stable-cursor-pagination.md": "f92ab7cc1fcdc79535b6cf1f55a8bef8b89e935a2fae4e96cb69cbdc017346db",
+    "src/python_backend_guidance/guides/stop-thread-work.md": "4029f1d9b8f66be1781facc8c5b030d73f335e0e3e6ece2c265a9c9a9770e41c",
+    "src/python_backend_guidance/guides/stream-large-files.md": "f1b097e6f91211196c2effcad87408a844dd0d726dfe179b7911717556fbb33b",
+    "src/python_backend_guidance/guides/transactional-outbox.md": "6762d970da9086e08e9287d623dfc564f81451973637ca8e77fa763dda81a5a9",
+    "src/python_backend_guidance/guides/unwind-partial-startup.md": "b3b8588d525994d94df854baa75a2e4fb6de0de892bbae239d541865c2c22f59",
+    "src/python_backend_guidance/guides/use-aware-timestamps.md": "d0d275e22e5fadf8e2721613d942bfa19f866c4e907836c301a168533b82e873",
+    "src/python_backend_guidance/guides/validate-boundary-data.md": "e3d043432516915d0d38818a1362151dc2dcd2c03bac2e34a328aa693f3356bd",
+    "src/python_backend_guidance/guides/validate-startup-configuration.md": "29d11f42b12d8a9e0bb3b5cdf6f5f1416bc9255c351ac1c3ed3298eb4fa7ca80",
+    "src/python_backend_guidance/guides/verify-tls.md": "3cad37f5b52a77b40d66d2def17f39003695af5a511392cf2c37039857a0e4a9",
+    "src/python_backend_guidance/guides/verify-token-claims.md": "470438c3b40dec597511dea31f1799e287e58422b6f35a0db0ac62dd9dfbcb27",
+    "src/python_backend_guidance/guides/version-message-payloads.md": "e366bb4189e97510e57363ab7966bd3df65612f0a680026babf8a3195b9949be",
+    "tests/conftest.py": "9266c34e77a363d2c7a87c8dd1b16308026b2b9046741b064cf465923fc85d5f",
+    "tests/contracts.py": "a321dcff70926cfb88941e360b4ce2e910ccab2d7a9c98fa36359091dc124936",
+    "tests/integration/conftest.py": "bb0dc702d472c41411a1ed8af3549906ac919ef706b6755e2f15b3290de7554f",
+    "tests/integration/test_database_contracts.py": "89494cf6299479b58df83c44c350f2d851ea6939b40a7f56bd13b93ef5ac1cbb",
+    "tests/integration/test_http_contracts.py": "7da29299a6e9c7505eeace405146060e7d8d69637e016204d295667c87fe8b7a",
+    "tests/integration/test_message_contracts.py": "dabda411505cf22e6c692d3910fd73669bdbd1ed371646c4b352ad044fc688b8",
+    "tests/test_apply_operation_deadline.py": "b3d05c47b698274a0689be611d7598ea75f3136e800d00078a6620f0a6e4ec6a",
+    "tests/test_backend_cache.py": "ebcb23a75dd1ec1d2bf55b74e40700aaeb485b686e4e53f54dd1e4b82e7bf3fa",
+    "tests/test_backend_concurrency.py": "6e318a63fa2be1521e508f28ee371003d9ed6b8f48c7c9e2699b1c4f8bedfb41",
+    "tests/test_backend_data.py": "6c1f0679e6a7d601f298b256859f65d6ef292f295e50e13ffaf93bf13bf57e9a",
+    "tests/test_backend_files.py": "777bca85206765ea29d26534cf5803699e935c394c61aa35be4989b87b805c03",
+    "tests/test_backend_lifecycle.py": "6d755e67efa0a1b285f723ba0ce082937161d019686831fd3e84fe621faa9401",
+    "tests/test_backend_observability.py": "6bd5fcf0a2fd6e6e5d523e3ab5961e69245df070c7f625dfc6929720dcbf6a87",
+    "tests/test_backend_security.py": "c0a154371a9df88f7d1201b944d543df591b2837d21312d5e7b3f58face82642",
+    "tests/test_bound_concurrent_work.py": "0d5fee7bb124dc255be662679519097d7acf80d2d0cf6206411817e7425018bb",
+    "tests/test_cli.py": "1a3379e8b4a4940972cd6261f0e2a9894296a39fa2d154edf0793e5c599f6002",
+    "tests/test_eval_runner.py": "6abe8c447f04372522711c38255c3def47ec8b103f7d05f155379dda75a2fcdd",
+    "tests/test_guide_format.py": "467a786070e4bc3ec93ad3022d38fa4a5c0c364084ba40e337f2080672126910",
+    "tests/test_guides.py": "fde8934d5fce57621ab9a35fa33503666ebf75c0d8a9e2fadf94b575e66fe740",
+    "tests/test_retry_read.py": "92de89e3a0d8c72bc666be02c693c637dc73e0e827dcfe9b880bac15340136fe",
+    "tests/test_search.py": "29da3397e86bcb33f22a8ff8b220ed964b7680aab1ce560bde5d4103aefe3a48",
+    "tests/test_search_benchmark.py": "0097743307a5a64ebb61c5775355dbcb3fe56eebb668488f37afd0827f11a214",
+    "tests/test_skill_export.py": "daa47d034fc9e9abc5d1760eb95c828085fb28fce8f193c03dc2af2622f564a8",
+    "tests/typing_contracts.py": "aa8ef066728950099d4e2cbfc47c05fcd8f73b388e63c518b413f920c7edc3af",
+    "uv.lock": "bb8dc38620b228eace2f3edbba11e36640fb697d17e1ca138b80c3f9d4afff3d"
+  },
+  "conditions": {
+    "unguided": {
+      "runs": 6,
+      "full_contract_passes": 6,
+      "mean_elapsed_seconds": 30.115,
+      "median_elapsed_seconds": 27.812,
+      "tokens_reported": {
+        "input": 19414,
+        "output": 3233,
+        "reasoning": 1635,
+        "cache_read": 19968,
+        "cache_write": 0
+      },
+      "tool_errors": 0,
+      "agent_errors": 0,
+      "checks": {
+        "passed": 44
+      }
+    },
+    "guided": {
+      "runs": 6,
+      "full_contract_passes": 6,
+      "mean_elapsed_seconds": 21.158,
+      "median_elapsed_seconds": 19.021,
+      "tokens_reported": {
+        "input": 20509,
+        "output": 2919,
+        "reasoning": 638,
+        "cache_read": 31104,
+        "cache_write": 0
+      },
+      "tool_errors": 0,
+      "agent_errors": 0,
+      "checks": {
+        "passed": 44
+      }
+    }
+  },
+  "pairs": [
+    {
+      "task": "bound-concurrent-work",
+      "repeat": 1,
+      "unguided_passed": true,
+      "guided_passed": true,
+      "guided_minus_unguided_seconds": -7.113
+    },
+    {
+      "task": "bound-concurrent-work",
+      "repeat": 2,
+      "unguided_passed": true,
+      "guided_passed": true,
+      "guided_minus_unguided_seconds": -10.468
+    },
+    {
+      "task": "coalesce-cache-misses",
+      "repeat": 1,
+      "unguided_passed": true,
+      "guided_passed": true,
+      "guided_minus_unguided_seconds": -5.559
+    },
+    {
+      "task": "coalesce-cache-misses",
+      "repeat": 2,
+      "unguided_passed": true,
+      "guided_passed": true,
+      "guided_minus_unguided_seconds": -26.595
+    },
+    {
+      "task": "verify-token-claims",
+      "repeat": 1,
+      "unguided_passed": true,
+      "guided_passed": true,
+      "guided_minus_unguided_seconds": -0.25
+    },
+    {
+      "task": "verify-token-claims",
+      "repeat": 2,
+      "unguided_passed": true,
+      "guided_passed": true,
+      "guided_minus_unguided_seconds": -3.757
+    }
+  ],
+  "guided_only_passes": 0,
+  "unguided_only_passes": 0,
+  "monetary_cost_usd": null,
+  "monetary_cost_reason": "Provider returned no tariffs; recorded zero costs are not verified billing.",
+  "trials": [
+    {
+      "id": "01-bound-concurrent-work-r1-guided",
+      "task": "bound-concurrent-work",
+      "condition": "guided",
+      "repeat": 1,
+      "session_id": "ses_e1bcc9d97ffeah3yII34MsVcTE",
+      "model": "openai/gpt-6.1-sol#medium",
+      "elapsed_seconds": 20.699,
+      "agent_exit_code": 0,
+      "timed_out": false,
+      "grade": {
+        "status": "passed",
+        "checks": [
+          {
+            "name": "test_success_handles_each_item_once_including_none[items0]",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_success_handles_each_item_once_including_none[items1]",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_saturated_workers_apply_backpressure_to_input",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_handler_failure_stops_other_work",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_source_failure_cancels_active_work",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_parent_cancellation_waits_for_worker_cleanup",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_nonpositive_limits_are_rejected[no-workers]",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_nonpositive_limits_are_rejected[unbounded-queue]",
+            "outcome": "passed"
+          }
+        ],
+        "summary": {
+          "passed": 8
+        },
+        "report_schema": 1,
+        "task": "bound-concurrent-work",
+        "solution": "/candidate/solution.py",
+        "solution_sha256": "54e81eb404e097db98e260af6ff0d9823f99367a5967f351af8d9776510722d0",
+        "guide_sha256": "c91c6899bb8fa7e2039bbec281794190de7a66df7adebaf0e127877cf253a013",
+        "contract_sha256": "02da87ec7b19f3bf4a0073b6cb9a410bdb5a590f41cdb864c20dac6eb1471e24",
+        "checks_sha256": "0d5fee7bb124dc255be662679519097d7acf80d2d0cf6206411817e7425018bb",
+        "fixtures_sha256": "9266c34e77a363d2c7a87c8dd1b16308026b2b9046741b064cf465923fc85d5f",
+        "fixture_files_sha256": {
+          "tests/conftest.py": "9266c34e77a363d2c7a87c8dd1b16308026b2b9046741b064cf465923fc85d5f"
+        },
+        "dependency_versions": {},
+        "package_version": "0.1.0",
+        "python": "3.12.16",
+        "platform": "Linux-7.2.4-200.fc44.x86_64-x86_64-with-glibc2.41",
+        "pytest": "9.2.0",
+        "pytest_asyncio": "1.5.0",
+        "selected_check": null,
+        "timeout_seconds": 30,
+        "exit_code": 0,
+        "log": "........                                                                 [100%]\n8 passed in 0.19s\n"
+      },
+      "session_outcome": "succeeded",
+      "tokens": {
+        "input": 4254,
+        "output": 538,
+        "reasoning": 25,
+        "cache": {
+          "read": 6016,
+          "write": 0
+        }
+      },
+      "reported_cost_usd": 0,
+      "cost_status": "unpriced-provider; reported zero is not verified free usage",
+      "solution_sha256": "54e81eb404e097db98e260af6ff0d9823f99367a5967f351af8d9776510722d0",
+      "grader_exit_code": 0,
+      "tool_counts": {
+        "read": 2,
+        "patch": 1
+      },
+      "tool_errors": [],
+      "full_contract_passed": true
+    },
+    {
+      "id": "02-bound-concurrent-work-r1-unguided",
+      "task": "bound-concurrent-work",
+      "condition": "unguided",
+      "repeat": 1,
+      "session_id": "ses_e1bcb08eaffeOsXxzT8zOupRT7",
+      "model": "openai/gpt-6.1-sol#medium",
+      "elapsed_seconds": 27.812,
+      "agent_exit_code": 0,
+      "timed_out": false,
+      "grade": {
+        "status": "passed",
+        "checks": [
+          {
+            "name": "test_success_handles_each_item_once_including_none[items0]",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_success_handles_each_item_once_including_none[items1]",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_saturated_workers_apply_backpressure_to_input",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_handler_failure_stops_other_work",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_source_failure_cancels_active_work",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_parent_cancellation_waits_for_worker_cleanup",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_nonpositive_limits_are_rejected[no-workers]",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_nonpositive_limits_are_rejected[unbounded-queue]",
+            "outcome": "passed"
+          }
+        ],
+        "summary": {
+          "passed": 8
+        },
+        "report_schema": 1,
+        "task": "bound-concurrent-work",
+        "solution": "/candidate/solution.py",
+        "solution_sha256": "c061aa70381cd246a3768d4f8501ca65514649fb4c1c85cff4f3d7249947436c",
+        "guide_sha256": "c91c6899bb8fa7e2039bbec281794190de7a66df7adebaf0e127877cf253a013",
+        "contract_sha256": "02da87ec7b19f3bf4a0073b6cb9a410bdb5a590f41cdb864c20dac6eb1471e24",
+        "checks_sha256": "0d5fee7bb124dc255be662679519097d7acf80d2d0cf6206411817e7425018bb",
+        "fixtures_sha256": "9266c34e77a363d2c7a87c8dd1b16308026b2b9046741b064cf465923fc85d5f",
+        "fixture_files_sha256": {
+          "tests/conftest.py": "9266c34e77a363d2c7a87c8dd1b16308026b2b9046741b064cf465923fc85d5f"
+        },
+        "dependency_versions": {},
+        "package_version": "0.1.0",
+        "python": "3.12.16",
+        "platform": "Linux-7.2.4-200.fc44.x86_64-x86_64-with-glibc2.41",
+        "pytest": "9.2.0",
+        "pytest_asyncio": "1.5.0",
+        "selected_check": null,
+        "timeout_seconds": 30,
+        "exit_code": 0,
+        "log": "........                                                                 [100%]\n8 passed in 0.19s\n"
+      },
+      "session_outcome": "succeeded",
+      "tokens": {
+        "input": 2423,
+        "output": 598,
+        "reasoning": 233,
+        "cache": {
+          "read": 4352,
+          "write": 0
+        }
+      },
+      "reported_cost_usd": 0,
+      "cost_status": "unpriced-provider; reported zero is not verified free usage",
+      "solution_sha256": "c061aa70381cd246a3768d4f8501ca65514649fb4c1c85cff4f3d7249947436c",
+      "grader_exit_code": 0,
+      "tool_counts": {
+        "read": 2,
+        "patch": 1
+      },
+      "tool_errors": [],
+      "full_contract_passed": true
+    },
+    {
+      "id": "03-coalesce-cache-misses-r1-unguided",
+      "task": "coalesce-cache-misses",
+      "condition": "unguided",
+      "repeat": 1,
+      "session_id": "ses_e1bca9603ffeNcmZDoN4iR4pJh",
+      "model": "openai/gpt-6.1-sol#medium",
+      "elapsed_seconds": 42.686,
+      "agent_exit_code": 0,
+      "timed_out": false,
+      "grade": {
+        "status": "passed",
+        "checks": [
+          {
+            "name": "test_simultaneous_misses_share_one_load",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_cancelled_waiter_does_not_cancel_shared_load",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_failed_load_can_be_retried",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_close_awaits_loader_cleanup",
+            "outcome": "passed"
+          }
+        ],
+        "summary": {
+          "passed": 4
+        },
+        "report_schema": 1,
+        "task": "coalesce-cache-misses",
+        "solution": "/candidate/solution.py",
+        "solution_sha256": "f80fad46def9216cd809d4cb0b2e738d4893682ec8d3a5420b9ef1b451004c8a",
+        "guide_sha256": "9400e173c6d5d89d4f3760a3e7aa660a9336de41c831bb41d037622aaa2179a6",
+        "contract_sha256": "02da87ec7b19f3bf4a0073b6cb9a410bdb5a590f41cdb864c20dac6eb1471e24",
+        "checks_sha256": "ebcb23a75dd1ec1d2bf55b74e40700aaeb485b686e4e53f54dd1e4b82e7bf3fa",
+        "fixtures_sha256": "9266c34e77a363d2c7a87c8dd1b16308026b2b9046741b064cf465923fc85d5f",
+        "fixture_files_sha256": {
+          "tests/conftest.py": "9266c34e77a363d2c7a87c8dd1b16308026b2b9046741b064cf465923fc85d5f"
+        },
+        "dependency_versions": {},
+        "package_version": "0.1.0",
+        "python": "3.12.16",
+        "platform": "Linux-7.2.4-200.fc44.x86_64-x86_64-with-glibc2.41",
+        "pytest": "9.2.0",
+        "pytest_asyncio": "1.5.0",
+        "selected_check": null,
+        "timeout_seconds": 30,
+        "exit_code": 0,
+        "log": "....                                                                     [100%]\n4 passed, 5 deselected in 0.18s\n"
+      },
+      "session_outcome": "succeeded",
+      "tokens": {
+        "input": 2343,
+        "output": 613,
+        "reasoning": 441,
+        "cache": {
+          "read": 4480,
+          "write": 0
+        }
+      },
+      "reported_cost_usd": 0,
+      "cost_status": "unpriced-provider; reported zero is not verified free usage",
+      "solution_sha256": "f80fad46def9216cd809d4cb0b2e738d4893682ec8d3a5420b9ef1b451004c8a",
+      "grader_exit_code": 0,
+      "tool_counts": {
+        "read": 2,
+        "patch": 1
+      },
+      "tool_errors": [],
+      "full_contract_passed": true
+    },
+    {
+      "id": "04-coalesce-cache-misses-r1-guided",
+      "task": "coalesce-cache-misses",
+      "condition": "guided",
+      "repeat": 1,
+      "session_id": "ses_e1bc9e8ffffeES84Pzw3CJgCA1",
+      "model": "openai/gpt-6.1-sol#medium",
+      "elapsed_seconds": 37.127,
+      "agent_exit_code": 0,
+      "timed_out": false,
+      "grade": {
+        "status": "passed",
+        "checks": [
+          {
+            "name": "test_simultaneous_misses_share_one_load",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_cancelled_waiter_does_not_cancel_shared_load",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_failed_load_can_be_retried",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_close_awaits_loader_cleanup",
+            "outcome": "passed"
+          }
+        ],
+        "summary": {
+          "passed": 4
+        },
+        "report_schema": 1,
+        "task": "coalesce-cache-misses",
+        "solution": "/candidate/solution.py",
+        "solution_sha256": "31f91c4f032eed93b42d3f87f412375e89fe75a9ee2938ed4159231512b5da6a",
+        "guide_sha256": "9400e173c6d5d89d4f3760a3e7aa660a9336de41c831bb41d037622aaa2179a6",
+        "contract_sha256": "02da87ec7b19f3bf4a0073b6cb9a410bdb5a590f41cdb864c20dac6eb1471e24",
+        "checks_sha256": "ebcb23a75dd1ec1d2bf55b74e40700aaeb485b686e4e53f54dd1e4b82e7bf3fa",
+        "fixtures_sha256": "9266c34e77a363d2c7a87c8dd1b16308026b2b9046741b064cf465923fc85d5f",
+        "fixture_files_sha256": {
+          "tests/conftest.py": "9266c34e77a363d2c7a87c8dd1b16308026b2b9046741b064cf465923fc85d5f"
+        },
+        "dependency_versions": {},
+        "package_version": "0.1.0",
+        "python": "3.12.16",
+        "platform": "Linux-7.2.4-200.fc44.x86_64-x86_64-with-glibc2.41",
+        "pytest": "9.2.0",
+        "pytest_asyncio": "1.5.0",
+        "selected_check": null,
+        "timeout_seconds": 30,
+        "exit_code": 0,
+        "log": "....                                                                     [100%]\n4 passed, 5 deselected in 0.18s\n"
+      },
+      "session_outcome": "succeeded",
+      "tokens": {
+        "input": 3101,
+        "output": 698,
+        "reasoning": 417,
+        "cache": {
+          "read": 5504,
+          "write": 0
+        }
+      },
+      "reported_cost_usd": 0,
+      "cost_status": "unpriced-provider; reported zero is not verified free usage",
+      "solution_sha256": "31f91c4f032eed93b42d3f87f412375e89fe75a9ee2938ed4159231512b5da6a",
+      "grader_exit_code": 0,
+      "tool_counts": {
+        "read": 2,
+        "patch": 1
+      },
+      "tool_errors": [],
+      "full_contract_passed": true
+    },
+    {
+      "id": "05-verify-token-claims-r1-unguided",
+      "task": "verify-token-claims",
+      "condition": "unguided",
+      "repeat": 1,
+      "session_id": "ses_e1bc951d4ffe6yBE5wjR9SIHgW",
+      "model": "openai/gpt-6.1-sol#medium",
+      "elapsed_seconds": 14.488,
+      "agent_exit_code": 0,
+      "timed_out": false,
+      "grade": {
+        "status": "passed",
+        "checks": [
+          {
+            "name": "test_wrong_signature_is_rejected",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_wrong_token_issuer_is_rejected",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_unapproved_algorithm_is_rejected",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_wrong_token_audience_is_rejected",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_valid_signed_token_is_accepted",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_expired_token_is_rejected",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_required_claim_cannot_be_omitted[exp]",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_required_claim_cannot_be_omitted[iss]",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_required_claim_cannot_be_omitted[aud]",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_required_claim_cannot_be_omitted[sub]",
+            "outcome": "passed"
+          }
+        ],
+        "summary": {
+          "passed": 10
+        },
+        "report_schema": 1,
+        "task": "verify-token-claims",
+        "solution": "/candidate/solution.py",
+        "solution_sha256": "d6f953b53f6e4882363824cc345852016e059d45f554ca1919826324b6dd08eb",
+        "guide_sha256": "470438c3b40dec597511dea31f1799e287e58422b6f35a0db0ac62dd9dfbcb27",
+        "contract_sha256": "02da87ec7b19f3bf4a0073b6cb9a410bdb5a590f41cdb864c20dac6eb1471e24",
+        "checks_sha256": "c0a154371a9df88f7d1201b944d543df591b2837d21312d5e7b3f58face82642",
+        "fixtures_sha256": "9266c34e77a363d2c7a87c8dd1b16308026b2b9046741b064cf465923fc85d5f",
+        "fixture_files_sha256": {
+          "tests/conftest.py": "9266c34e77a363d2c7a87c8dd1b16308026b2b9046741b064cf465923fc85d5f"
+        },
+        "dependency_versions": {
+          "PyJWT": "2.15.1"
+        },
+        "package_version": "0.1.0",
+        "python": "3.12.16",
+        "platform": "Linux-7.2.4-200.fc44.x86_64-x86_64-with-glibc2.41",
+        "pytest": "9.2.0",
+        "pytest_asyncio": "1.5.0",
+        "selected_check": null,
+        "timeout_seconds": 30,
+        "exit_code": 0,
+        "log": "..........                                                               [100%]\n10 passed, 2 deselected in 0.22s\n"
+      },
+      "session_outcome": "succeeded",
+      "tokens": {
+        "input": 4458,
+        "output": 390,
+        "reasoning": 34,
+        "cache": {
+          "read": 1664,
+          "write": 0
+        }
+      },
+      "reported_cost_usd": 0,
+      "cost_status": "unpriced-provider; reported zero is not verified free usage",
+      "solution_sha256": "d6f953b53f6e4882363824cc345852016e059d45f554ca1919826324b6dd08eb",
+      "grader_exit_code": 0,
+      "tool_counts": {
+        "read": 2,
+        "patch": 1
+      },
+      "tool_errors": [],
+      "full_contract_passed": true
+    },
+    {
+      "id": "06-verify-token-claims-r1-guided",
+      "task": "verify-token-claims",
+      "condition": "guided",
+      "repeat": 1,
+      "session_id": "ses_e1bc912d5ffeuxq2W9lt6iCxge",
+      "model": "openai/gpt-6.1-sol#medium",
+      "elapsed_seconds": 14.238,
+      "agent_exit_code": 0,
+      "timed_out": false,
+      "grade": {
+        "status": "passed",
+        "checks": [
+          {
+            "name": "test_wrong_signature_is_rejected",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_wrong_token_issuer_is_rejected",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_unapproved_algorithm_is_rejected",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_wrong_token_audience_is_rejected",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_valid_signed_token_is_accepted",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_expired_token_is_rejected",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_required_claim_cannot_be_omitted[exp]",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_required_claim_cannot_be_omitted[iss]",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_required_claim_cannot_be_omitted[aud]",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_required_claim_cannot_be_omitted[sub]",
+            "outcome": "passed"
+          }
+        ],
+        "summary": {
+          "passed": 10
+        },
+        "report_schema": 1,
+        "task": "verify-token-claims",
+        "solution": "/candidate/solution.py",
+        "solution_sha256": "2271df29c94df8810ff7b8661ccd7308b754ef2a5cf75fdea7c6e34544651664",
+        "guide_sha256": "470438c3b40dec597511dea31f1799e287e58422b6f35a0db0ac62dd9dfbcb27",
+        "contract_sha256": "02da87ec7b19f3bf4a0073b6cb9a410bdb5a590f41cdb864c20dac6eb1471e24",
+        "checks_sha256": "c0a154371a9df88f7d1201b944d543df591b2837d21312d5e7b3f58face82642",
+        "fixtures_sha256": "9266c34e77a363d2c7a87c8dd1b16308026b2b9046741b064cf465923fc85d5f",
+        "fixture_files_sha256": {
+          "tests/conftest.py": "9266c34e77a363d2c7a87c8dd1b16308026b2b9046741b064cf465923fc85d5f"
+        },
+        "dependency_versions": {
+          "PyJWT": "2.15.1"
+        },
+        "package_version": "0.1.0",
+        "python": "3.12.16",
+        "platform": "Linux-7.2.4-200.fc44.x86_64-x86_64-with-glibc2.41",
+        "pytest": "9.2.0",
+        "pytest_asyncio": "1.5.0",
+        "selected_check": null,
+        "timeout_seconds": 30,
+        "exit_code": 0,
+        "log": "..........                                                               [100%]\n10 passed, 2 deselected in 0.23s\n"
+      },
+      "session_outcome": "succeeded",
+      "tokens": {
+        "input": 2890,
+        "output": 281,
+        "reasoning": 0,
+        "cache": {
+          "read": 4224,
+          "write": 0
+        }
+      },
+      "reported_cost_usd": 0,
+      "cost_status": "unpriced-provider; reported zero is not verified free usage",
+      "solution_sha256": "2271df29c94df8810ff7b8661ccd7308b754ef2a5cf75fdea7c6e34544651664",
+      "grader_exit_code": 0,
+      "tool_counts": {
+        "read": 2,
+        "patch": 1
+      },
+      "tool_errors": [],
+      "full_contract_passed": true
+    },
+    {
+      "id": "07-verify-token-claims-r2-guided",
+      "task": "verify-token-claims",
+      "condition": "guided",
+      "repeat": 2,
+      "session_id": "ses_e1bc8d4c7ffeFlvPEx7RsTSsBD",
+      "model": "openai/gpt-6.1-sol#medium",
+      "elapsed_seconds": 15.59,
+      "agent_exit_code": 0,
+      "timed_out": false,
+      "grade": {
+        "status": "passed",
+        "checks": [
+          {
+            "name": "test_wrong_signature_is_rejected",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_wrong_token_issuer_is_rejected",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_unapproved_algorithm_is_rejected",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_wrong_token_audience_is_rejected",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_valid_signed_token_is_accepted",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_expired_token_is_rejected",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_required_claim_cannot_be_omitted[exp]",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_required_claim_cannot_be_omitted[iss]",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_required_claim_cannot_be_omitted[aud]",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_required_claim_cannot_be_omitted[sub]",
+            "outcome": "passed"
+          }
+        ],
+        "summary": {
+          "passed": 10
+        },
+        "report_schema": 1,
+        "task": "verify-token-claims",
+        "solution": "/candidate/solution.py",
+        "solution_sha256": "d658caaeeffda00cf33055cbeaf2ecb8df2aef70d1f5395ab77a6b352d373feb",
+        "guide_sha256": "470438c3b40dec597511dea31f1799e287e58422b6f35a0db0ac62dd9dfbcb27",
+        "contract_sha256": "02da87ec7b19f3bf4a0073b6cb9a410bdb5a590f41cdb864c20dac6eb1471e24",
+        "checks_sha256": "c0a154371a9df88f7d1201b944d543df591b2837d21312d5e7b3f58face82642",
+        "fixtures_sha256": "9266c34e77a363d2c7a87c8dd1b16308026b2b9046741b064cf465923fc85d5f",
+        "fixture_files_sha256": {
+          "tests/conftest.py": "9266c34e77a363d2c7a87c8dd1b16308026b2b9046741b064cf465923fc85d5f"
+        },
+        "dependency_versions": {
+          "PyJWT": "2.15.1"
+        },
+        "package_version": "0.1.0",
+        "python": "3.12.16",
+        "platform": "Linux-7.2.4-200.fc44.x86_64-x86_64-with-glibc2.41",
+        "pytest": "9.2.0",
+        "pytest_asyncio": "1.5.0",
+        "selected_check": null,
+        "timeout_seconds": 30,
+        "exit_code": 0,
+        "log": "..........                                                               [100%]\n10 passed, 2 deselected in 0.22s\n"
+      },
+      "session_outcome": "succeeded",
+      "tokens": {
+        "input": 2888,
+        "output": 354,
+        "reasoning": 16,
+        "cache": {
+          "read": 4480,
+          "write": 0
+        }
+      },
+      "reported_cost_usd": 0,
+      "cost_status": "unpriced-provider; reported zero is not verified free usage",
+      "solution_sha256": "d658caaeeffda00cf33055cbeaf2ecb8df2aef70d1f5395ab77a6b352d373feb",
+      "grader_exit_code": 0,
+      "tool_counts": {
+        "read": 2,
+        "patch": 1
+      },
+      "tool_errors": [],
+      "full_contract_passed": true
+    },
+    {
+      "id": "08-verify-token-claims-r2-unguided",
+      "task": "verify-token-claims",
+      "condition": "unguided",
+      "repeat": 2,
+      "session_id": "ses_e1bc8919bffeSRWiLjQgtKj3at",
+      "model": "openai/gpt-6.1-sol#medium",
+      "elapsed_seconds": 19.347,
+      "agent_exit_code": 0,
+      "timed_out": false,
+      "grade": {
+        "status": "passed",
+        "checks": [
+          {
+            "name": "test_wrong_signature_is_rejected",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_wrong_token_issuer_is_rejected",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_unapproved_algorithm_is_rejected",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_wrong_token_audience_is_rejected",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_valid_signed_token_is_accepted",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_expired_token_is_rejected",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_required_claim_cannot_be_omitted[exp]",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_required_claim_cannot_be_omitted[iss]",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_required_claim_cannot_be_omitted[aud]",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_required_claim_cannot_be_omitted[sub]",
+            "outcome": "passed"
+          }
+        ],
+        "summary": {
+          "passed": 10
+        },
+        "report_schema": 1,
+        "task": "verify-token-claims",
+        "solution": "/candidate/solution.py",
+        "solution_sha256": "98b2978802356bb417930495410ab3e5b40a094733cc862355f95ebc4ec636d5",
+        "guide_sha256": "470438c3b40dec597511dea31f1799e287e58422b6f35a0db0ac62dd9dfbcb27",
+        "contract_sha256": "02da87ec7b19f3bf4a0073b6cb9a410bdb5a590f41cdb864c20dac6eb1471e24",
+        "checks_sha256": "c0a154371a9df88f7d1201b944d543df591b2837d21312d5e7b3f58face82642",
+        "fixtures_sha256": "9266c34e77a363d2c7a87c8dd1b16308026b2b9046741b064cf465923fc85d5f",
+        "fixture_files_sha256": {
+          "tests/conftest.py": "9266c34e77a363d2c7a87c8dd1b16308026b2b9046741b064cf465923fc85d5f"
+        },
+        "dependency_versions": {
+          "PyJWT": "2.15.1"
+        },
+        "package_version": "0.1.0",
+        "python": "3.12.16",
+        "platform": "Linux-7.2.4-200.fc44.x86_64-x86_64-with-glibc2.41",
+        "pytest": "9.2.0",
+        "pytest_asyncio": "1.5.0",
+        "selected_check": null,
+        "timeout_seconds": 30,
+        "exit_code": 0,
+        "log": "..........                                                               [100%]\n10 passed, 2 deselected in 0.22s\n"
+      },
+      "session_outcome": "succeeded",
+      "tokens": {
+        "input": 2305,
+        "output": 266,
+        "reasoning": 97,
+        "cache": {
+          "read": 3584,
+          "write": 0
+        }
+      },
+      "reported_cost_usd": 0,
+      "cost_status": "unpriced-provider; reported zero is not verified free usage",
+      "solution_sha256": "98b2978802356bb417930495410ab3e5b40a094733cc862355f95ebc4ec636d5",
+      "grader_exit_code": 0,
+      "tool_counts": {
+        "read": 2,
+        "patch": 1
+      },
+      "tool_errors": [],
+      "full_contract_passed": true
+    },
+    {
+      "id": "09-bound-concurrent-work-r2-unguided",
+      "task": "bound-concurrent-work",
+      "condition": "unguided",
+      "repeat": 2,
+      "session_id": "ses_e1bc83f99ffeoeZl1jlGoNBzMq",
+      "model": "openai/gpt-6.1-sol#medium",
+      "elapsed_seconds": 27.811,
+      "agent_exit_code": 0,
+      "timed_out": false,
+      "grade": {
+        "status": "passed",
+        "checks": [
+          {
+            "name": "test_success_handles_each_item_once_including_none[items0]",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_success_handles_each_item_once_including_none[items1]",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_saturated_workers_apply_backpressure_to_input",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_handler_failure_stops_other_work",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_source_failure_cancels_active_work",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_parent_cancellation_waits_for_worker_cleanup",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_nonpositive_limits_are_rejected[no-workers]",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_nonpositive_limits_are_rejected[unbounded-queue]",
+            "outcome": "passed"
+          }
+        ],
+        "summary": {
+          "passed": 8
+        },
+        "report_schema": 1,
+        "task": "bound-concurrent-work",
+        "solution": "/candidate/solution.py",
+        "solution_sha256": "2b410d37ede32460c676105a6bb28c3745eafc9a47089d438e9f838c30f24240",
+        "guide_sha256": "c91c6899bb8fa7e2039bbec281794190de7a66df7adebaf0e127877cf253a013",
+        "contract_sha256": "02da87ec7b19f3bf4a0073b6cb9a410bdb5a590f41cdb864c20dac6eb1471e24",
+        "checks_sha256": "0d5fee7bb124dc255be662679519097d7acf80d2d0cf6206411817e7425018bb",
+        "fixtures_sha256": "9266c34e77a363d2c7a87c8dd1b16308026b2b9046741b064cf465923fc85d5f",
+        "fixture_files_sha256": {
+          "tests/conftest.py": "9266c34e77a363d2c7a87c8dd1b16308026b2b9046741b064cf465923fc85d5f"
+        },
+        "dependency_versions": {},
+        "package_version": "0.1.0",
+        "python": "3.12.16",
+        "platform": "Linux-7.2.4-200.fc44.x86_64-x86_64-with-glibc2.41",
+        "pytest": "9.2.0",
+        "pytest_asyncio": "1.5.0",
+        "selected_check": null,
+        "timeout_seconds": 30,
+        "exit_code": 0,
+        "log": "........                                                                 [100%]\n8 passed in 0.19s\n"
+      },
+      "session_outcome": "succeeded",
+      "tokens": {
+        "input": 2442,
+        "output": 592,
+        "reasoning": 259,
+        "cache": {
+          "read": 4352,
+          "write": 0
+        }
+      },
+      "reported_cost_usd": 0,
+      "cost_status": "unpriced-provider; reported zero is not verified free usage",
+      "solution_sha256": "2b410d37ede32460c676105a6bb28c3745eafc9a47089d438e9f838c30f24240",
+      "grader_exit_code": 0,
+      "tool_counts": {
+        "read": 2,
+        "patch": 1
+      },
+      "tool_errors": [],
+      "full_contract_passed": true
+    },
+    {
+      "id": "10-bound-concurrent-work-r2-guided",
+      "task": "bound-concurrent-work",
+      "condition": "guided",
+      "repeat": 2,
+      "session_id": "ses_e1bc7ccd2ffe62ohfJsDun6pgF",
+      "model": "openai/gpt-6.1-sol#medium",
+      "elapsed_seconds": 17.343,
+      "agent_exit_code": 0,
+      "timed_out": false,
+      "grade": {
+        "status": "passed",
+        "checks": [
+          {
+            "name": "test_success_handles_each_item_once_including_none[items0]",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_success_handles_each_item_once_including_none[items1]",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_saturated_workers_apply_backpressure_to_input",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_handler_failure_stops_other_work",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_source_failure_cancels_active_work",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_parent_cancellation_waits_for_worker_cleanup",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_nonpositive_limits_are_rejected[no-workers]",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_nonpositive_limits_are_rejected[unbounded-queue]",
+            "outcome": "passed"
+          }
+        ],
+        "summary": {
+          "passed": 8
+        },
+        "report_schema": 1,
+        "task": "bound-concurrent-work",
+        "solution": "/candidate/solution.py",
+        "solution_sha256": "1d3b78a04cfbca23f540ea19227b5331b15a8a0a84c06c6297990345ee31dfdf",
+        "guide_sha256": "c91c6899bb8fa7e2039bbec281794190de7a66df7adebaf0e127877cf253a013",
+        "contract_sha256": "02da87ec7b19f3bf4a0073b6cb9a410bdb5a590f41cdb864c20dac6eb1471e24",
+        "checks_sha256": "0d5fee7bb124dc255be662679519097d7acf80d2d0cf6206411817e7425018bb",
+        "fixtures_sha256": "9266c34e77a363d2c7a87c8dd1b16308026b2b9046741b064cf465923fc85d5f",
+        "fixture_files_sha256": {
+          "tests/conftest.py": "9266c34e77a363d2c7a87c8dd1b16308026b2b9046741b064cf465923fc85d5f"
+        },
+        "dependency_versions": {},
+        "package_version": "0.1.0",
+        "python": "3.12.16",
+        "platform": "Linux-7.2.4-200.fc44.x86_64-x86_64-with-glibc2.41",
+        "pytest": "9.2.0",
+        "pytest_asyncio": "1.5.0",
+        "selected_check": null,
+        "timeout_seconds": 30,
+        "exit_code": 0,
+        "log": "........                                                                 [100%]\n8 passed in 0.19s\n"
+      },
+      "session_outcome": "succeeded",
+      "tokens": {
+        "input": 4259,
+        "output": 458,
+        "reasoning": 19,
+        "cache": {
+          "read": 5760,
+          "write": 0
+        }
+      },
+      "reported_cost_usd": 0,
+      "cost_status": "unpriced-provider; reported zero is not verified free usage",
+      "solution_sha256": "1d3b78a04cfbca23f540ea19227b5331b15a8a0a84c06c6297990345ee31dfdf",
+      "grader_exit_code": 0,
+      "tool_counts": {
+        "read": 2,
+        "patch": 1
+      },
+      "tool_errors": [],
+      "full_contract_passed": true
+    },
+    {
+      "id": "11-coalesce-cache-misses-r2-guided",
+      "task": "coalesce-cache-misses",
+      "condition": "guided",
+      "repeat": 2,
+      "session_id": "ses_e1bc782e9ffeXwkN0o27eQy0kY",
+      "model": "openai/gpt-6.1-sol#medium",
+      "elapsed_seconds": 21.951,
+      "agent_exit_code": 0,
+      "timed_out": false,
+      "grade": {
+        "status": "passed",
+        "checks": [
+          {
+            "name": "test_simultaneous_misses_share_one_load",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_cancelled_waiter_does_not_cancel_shared_load",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_failed_load_can_be_retried",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_close_awaits_loader_cleanup",
+            "outcome": "passed"
+          }
+        ],
+        "summary": {
+          "passed": 4
+        },
+        "report_schema": 1,
+        "task": "coalesce-cache-misses",
+        "solution": "/candidate/solution.py",
+        "solution_sha256": "529cefb4a2632fe8258852f26dc8fd103bb7828edbc95b94eef0ece2ccc76cf9",
+        "guide_sha256": "9400e173c6d5d89d4f3760a3e7aa660a9336de41c831bb41d037622aaa2179a6",
+        "contract_sha256": "02da87ec7b19f3bf4a0073b6cb9a410bdb5a590f41cdb864c20dac6eb1471e24",
+        "checks_sha256": "ebcb23a75dd1ec1d2bf55b74e40700aaeb485b686e4e53f54dd1e4b82e7bf3fa",
+        "fixtures_sha256": "9266c34e77a363d2c7a87c8dd1b16308026b2b9046741b064cf465923fc85d5f",
+        "fixture_files_sha256": {
+          "tests/conftest.py": "9266c34e77a363d2c7a87c8dd1b16308026b2b9046741b064cf465923fc85d5f"
+        },
+        "dependency_versions": {},
+        "package_version": "0.1.0",
+        "python": "3.12.16",
+        "platform": "Linux-7.2.4-200.fc44.x86_64-x86_64-with-glibc2.41",
+        "pytest": "9.2.0",
+        "pytest_asyncio": "1.5.0",
+        "selected_check": null,
+        "timeout_seconds": 30,
+        "exit_code": 0,
+        "log": "....                                                                     [100%]\n4 passed, 5 deselected in 0.17s\n"
+      },
+      "session_outcome": "succeeded",
+      "tokens": {
+        "input": 3117,
+        "output": 590,
+        "reasoning": 161,
+        "cache": {
+          "read": 5120,
+          "write": 0
+        }
+      },
+      "reported_cost_usd": 0,
+      "cost_status": "unpriced-provider; reported zero is not verified free usage",
+      "solution_sha256": "529cefb4a2632fe8258852f26dc8fd103bb7828edbc95b94eef0ece2ccc76cf9",
+      "grader_exit_code": 0,
+      "tool_counts": {
+        "read": 2,
+        "patch": 1
+      },
+      "tool_errors": [],
+      "full_contract_passed": true
+    },
+    {
+      "id": "12-coalesce-cache-misses-r2-unguided",
+      "task": "coalesce-cache-misses",
+      "condition": "unguided",
+      "repeat": 2,
+      "session_id": "ses_e1bc72703ffeN44edrDns5hOiV",
+      "model": "openai/gpt-6.1-sol#medium",
+      "elapsed_seconds": 48.546,
+      "agent_exit_code": 0,
+      "timed_out": false,
+      "grade": {
+        "status": "passed",
+        "checks": [
+          {
+            "name": "test_simultaneous_misses_share_one_load",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_cancelled_waiter_does_not_cancel_shared_load",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_failed_load_can_be_retried",
+            "outcome": "passed"
+          },
+          {
+            "name": "test_close_awaits_loader_cleanup",
+            "outcome": "passed"
+          }
+        ],
+        "summary": {
+          "passed": 4
+        },
+        "report_schema": 1,
+        "task": "coalesce-cache-misses",
+        "solution": "/candidate/solution.py",
+        "solution_sha256": "42bdf84abd452c5e0ee8de124fa1d6edeb209c7dca76cb4650a88450b4cc9161",
+        "guide_sha256": "9400e173c6d5d89d4f3760a3e7aa660a9336de41c831bb41d037622aaa2179a6",
+        "contract_sha256": "02da87ec7b19f3bf4a0073b6cb9a410bdb5a590f41cdb864c20dac6eb1471e24",
+        "checks_sha256": "ebcb23a75dd1ec1d2bf55b74e40700aaeb485b686e4e53f54dd1e4b82e7bf3fa",
+        "fixtures_sha256": "9266c34e77a363d2c7a87c8dd1b16308026b2b9046741b064cf465923fc85d5f",
+        "fixture_files_sha256": {
+          "tests/conftest.py": "9266c34e77a363d2c7a87c8dd1b16308026b2b9046741b064cf465923fc85d5f"
+        },
+        "dependency_versions": {},
+        "package_version": "0.1.0",
+        "python": "3.12.16",
+        "platform": "Linux-7.2.4-200.fc44.x86_64-x86_64-with-glibc2.41",
+        "pytest": "9.2.0",
+        "pytest_asyncio": "1.5.0",
+        "selected_check": null,
+        "timeout_seconds": 30,
+        "exit_code": 0,
+        "log": "....                                                                     [100%]\n4 passed, 5 deselected in 0.17s\n"
+      },
+      "session_outcome": "succeeded",
+      "tokens": {
+        "input": 5443,
+        "output": 774,
+        "reasoning": 571,
+        "cache": {
+          "read": 1536,
+          "write": 0
+        }
+      },
+      "reported_cost_usd": 0,
+      "cost_status": "unpriced-provider; reported zero is not verified free usage",
+      "solution_sha256": "42bdf84abd452c5e0ee8de124fa1d6edeb209c7dca76cb4650a88450b4cc9161",
+      "grader_exit_code": 0,
+      "tool_counts": {
+        "read": 2,
+        "patch": 1
+      },
+      "tool_errors": [],
+      "full_contract_passed": true
+    }
+  ]
+}

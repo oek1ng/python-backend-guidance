@@ -1,0 +1,861 @@
+schema_version = 1
+
+[[queries]]
+split = "development"
+query = "limit concurrent work"
+expected = ["bound-concurrent-work"]
+
+[[queries]]
+split = "development"
+query = "bounded async fanout"
+expected = ["bound-concurrent-work"]
+
+[[queries]]
+split = "development"
+query = "parallel worker pool"
+expected = ["bound-concurrent-work"]
+
+[[queries]]
+split = "development"
+query = "avoid creating a task per item"
+expected = ["bound-concurrent-work"]
+
+[[queries]]
+split = "development"
+query = "backpressure for a stream"
+expected = ["bound-concurrent-work"]
+
+[[queries]]
+split = "development"
+query = "limit pending jobs"
+expected = ["bound-concurrent-work"]
+
+[[queries]]
+split = "development"
+query = "overall workflow deadline"
+expected = ["apply-operation-deadline"]
+
+[[queries]]
+split = "development"
+query = "timeout across fetch and store"
+expected = ["apply-operation-deadline"]
+
+[[queries]]
+split = "development"
+query = "expired time budget"
+expected = ["apply-operation-deadline", "retry-transient-reads"]
+
+[[queries]]
+split = "development"
+query = "preserve cancellation during timeout"
+expected = ["apply-operation-deadline"]
+
+[[queries]]
+split = "development"
+query = "monotonic request deadline"
+expected = ["apply-operation-deadline"]
+
+[[queries]]
+split = "development"
+query = "stop resetting timeout for each stage"
+expected = ["apply-operation-deadline"]
+
+[[queries]]
+split = "development"
+query = "retry transient reads"
+expected = ["retry-transient-reads"]
+
+[[queries]]
+split = "development"
+query = "capped exponential backoff"
+expected = ["retry-transient-reads"]
+
+[[queries]]
+split = "development"
+query = "jitter between trying again"
+expected = ["retry-transient-reads"]
+
+[[queries]]
+split = "development"
+query = "bound attempt count"
+expected = ["retry-transient-reads"]
+
+[[queries]]
+split = "development"
+query = "do not retry validation errors"
+expected = ["retry-transient-reads"]
+
+[[queries]]
+split = "development"
+query = "retry budgets include all sleep"
+expected = ["retry-transient-reads"]
+
+[[queries]]
+split = "development"
+query = "profile CPU bound calculations"
+expected = []
+
+[[queries]]
+split = "development"
+query = "configure Django middleware"
+expected = []
+
+[[queries]]
+split = "development"
+query = "SQLAlchemy transaction rollback"
+expected = ["bound-transactions"]
+
+[[queries]]
+split = "development"
+query = "HTTP connection pool lifecycle"
+expected = ["reuse-http-clients"]
+
+[[queries]]
+split = "development"
+query = "object level authorization"
+expected = ["authorize-objects"]
+
+[[queries]]
+split = "development"
+query = "enforce server requests per second"
+expected = []
+
+[[queries]]
+split = "development"
+query = "streaming download payload size"
+expected = ["bound-response-bytes"]
+
+[[queries]]
+split = "development"
+query = "PostgreSQL lost updates"
+expected = ["prevent-lost-updates"]
+
+[[queries]]
+split = "validation"
+query = "bound async I/O workload"
+expected = ["bound-concurrent-work"]
+
+[[queries]]
+split = "validation"
+query = "slow consumer backpressure"
+expected = ["bound-concurrent-work"]
+
+[[queries]]
+split = "validation"
+query = "million waiting tasks"
+expected = ["bound-concurrent-work"]
+
+[[queries]]
+split = "validation"
+query = "bounded parallel batches"
+expected = ["bound-concurrent-work"]
+
+[[queries]]
+split = "validation"
+query = "one budget for fetch and store"
+expected = ["apply-operation-deadline"]
+
+[[queries]]
+split = "validation"
+query = "cancel a stalled workflow"
+expected = ["apply-operation-deadline"]
+
+[[queries]]
+split = "validation"
+query = "share a deadline between stages"
+expected = ["apply-operation-deadline"]
+
+[[queries]]
+split = "validation"
+query = "monotonic overall timeout"
+expected = ["apply-operation-deadline"]
+
+[[queries]]
+split = "validation"
+query = "recover temporarily unavailable read"
+expected = ["retry-transient-reads"]
+
+[[queries]]
+split = "validation"
+query = "retry with maximum attempts"
+expected = ["retry-transient-reads"]
+
+[[queries]]
+split = "validation"
+query = "spread retry traffic with jitter"
+expected = ["retry-transient-reads"]
+
+[[queries]]
+split = "validation"
+query = "avoid retrying permanent errors"
+expected = ["retry-transient-reads"]
+
+[[queries]]
+split = "validation"
+query = "repair Alembic migrations"
+expected = []
+
+[[queries]]
+split = "validation"
+query = "JWT token signature verification"
+expected = ["verify-token-claims"]
+
+[[queries]]
+split = "validation"
+query = "distributed API rate limiter"
+expected = []
+
+[[queries]]
+split = "validation"
+query = "safe path traversal file uploads"
+expected = ["confine-file-access"]
+
+[[queries]]
+split = "validation"
+query = "choose database isolation level"
+expected = []
+
+[[queries]]
+split = "validation"
+query = "Redis cache expiration policy"
+expected = ["expire-cached-values"]
+
+[[queries]]
+split = "development"
+query = "child task lifetime"
+expected = ["own-child-tasks"]
+
+[[queries]]
+split = "development"
+query = "blocking sync function"
+expected = ["offload-blocking-io"]
+
+[[queries]]
+split = "development"
+query = "cancel thread worker"
+expected = ["stop-thread-work"]
+
+[[queries]]
+split = "development"
+query = "request context leakage"
+expected = ["isolate-request-context"]
+
+[[queries]]
+split = "development"
+query = "durable idempotency key"
+expected = ["deduplicate-mutations"]
+
+[[queries]]
+split = "development"
+query = "graceful shutdown"
+expected = ["drain-on-shutdown"]
+
+[[queries]]
+split = "development"
+query = "reject excess requests"
+expected = ["reject-overload"]
+
+[[queries]]
+split = "development"
+query = "reuse HTTP connections"
+expected = ["reuse-http-clients"]
+
+[[queries]]
+split = "development"
+query = "HTTP connect read write pool timeout"
+expected = ["set-http-timeouts"]
+
+[[queries]]
+split = "development"
+query = "compressed response limit"
+expected = ["bound-response-bytes"]
+
+[[queries]]
+split = "development"
+query = "custom CA bundle"
+expected = ["verify-tls"]
+
+[[queries]]
+split = "development"
+query = "redirect credential leak"
+expected = ["control-redirects"]
+
+[[queries]]
+split = "development"
+query = "atomic transfer"
+expected = ["bound-transactions"]
+
+[[queries]]
+split = "development"
+query = "SQL injection prevention"
+expected = ["parameterize-sql"]
+
+[[queries]]
+split = "development"
+query = "check then insert race"
+expected = ["enforce-database-constraints"]
+
+[[queries]]
+split = "development"
+query = "stale concurrent edit"
+expected = ["prevent-lost-updates"]
+
+[[queries]]
+split = "development"
+query = "serialization failure retry"
+expected = ["retry-whole-transactions"]
+
+[[queries]]
+split = "development"
+query = "N+1 database queries"
+expected = ["batch-related-queries"]
+
+[[queries]]
+split = "development"
+query = "stable cursor pagination"
+expected = ["stable-cursor-pagination"]
+
+[[queries]]
+split = "development"
+query = "inspect SQL query plan"
+expected = ["inspect-query-plans"]
+
+[[queries]]
+split = "development"
+query = "pool size across replicas"
+expected = ["budget-connection-pools"]
+
+[[queries]]
+split = "development"
+query = "backward compatible schema"
+expected = ["expand-contract-migrations"]
+
+[[queries]]
+split = "development"
+query = "manual consumer acknowledgement"
+expected = ["ack-after-commit"]
+
+[[queries]]
+split = "development"
+query = "atomic inbox record"
+expected = ["deduplicate-deliveries"]
+
+[[queries]]
+split = "development"
+query = "database broker dual write"
+expected = ["transactional-outbox"]
+
+[[queries]]
+split = "development"
+query = "poison message retry loop"
+expected = ["quarantine-poison-messages"]
+
+[[queries]]
+split = "development"
+query = "backward compatible events"
+expected = ["version-message-payloads"]
+
+[[queries]]
+split = "development"
+query = "tenant scoped cache key"
+expected = ["scope-cache-keys"]
+
+[[queries]]
+split = "development"
+query = "TTL freshness boundary"
+expected = ["expire-cached-values"]
+
+[[queries]]
+split = "development"
+query = "cache miss stampede"
+expected = ["coalesce-cache-misses"]
+
+[[queries]]
+split = "development"
+query = "negative caching errors"
+expected = ["distinguish-cache-misses"]
+
+[[queries]]
+split = "development"
+query = "expired lock owner write"
+expected = ["fence-stale-writers"]
+
+[[queries]]
+split = "development"
+query = "validate request payload"
+expected = ["validate-boundary-data"]
+
+[[queries]]
+split = "development"
+query = "incoming body size limit"
+expected = ["bound-incoming-bodies"]
+
+[[queries]]
+split = "development"
+query = "PATCH absent versus null"
+expected = ["distinguish-patch-null"]
+
+[[queries]]
+split = "development"
+query = "timezone aware timestamps"
+expected = ["use-aware-timestamps"]
+
+[[queries]]
+split = "development"
+query = "currency rounding"
+expected = ["quantize-money"]
+
+[[queries]]
+split = "development"
+query = "broken object authorization"
+expected = ["authorize-objects"]
+
+[[queries]]
+split = "development"
+query = "cross tenant query"
+expected = ["isolate-tenant-queries"]
+
+[[queries]]
+split = "development"
+query = "SSRF prevention"
+expected = ["restrict-outbound-destinations"]
+
+[[queries]]
+split = "development"
+query = "symlink file escape"
+expected = ["confine-file-access"]
+
+[[queries]]
+split = "development"
+query = "validate token claims"
+expected = ["verify-token-claims"]
+
+[[queries]]
+split = "development"
+query = "secret redaction logs"
+expected = ["allowlist-log-fields"]
+
+[[queries]]
+split = "development"
+query = "request log correlation"
+expected = ["correlate-request-logs"]
+
+[[queries]]
+split = "development"
+query = "high cardinality metrics"
+expected = ["bound-metric-labels"]
+
+[[queries]]
+split = "development"
+query = "preserve exception cause"
+expected = ["preserve-error-causes"]
+
+[[queries]]
+split = "development"
+query = "liveness readiness probes"
+expected = ["separate-health-probes"]
+
+[[queries]]
+split = "development"
+query = "shell command injection"
+expected = ["avoid-shell-interpolation"]
+
+[[queries]]
+split = "development"
+query = "subprocess timeout output limit"
+expected = ["bound-subprocess-resources"]
+
+[[queries]]
+split = "development"
+query = "stream large file"
+expected = ["stream-large-files"]
+
+[[queries]]
+split = "development"
+query = "atomic file replacement"
+expected = ["replace-files-atomically"]
+
+[[queries]]
+split = "development"
+query = "temporary file cleanup"
+expected = ["own-temporary-files"]
+
+[[queries]]
+split = "development"
+query = "environment boolean parsing"
+expected = ["validate-startup-configuration"]
+
+[[queries]]
+split = "development"
+query = "resource ownership cleanup"
+expected = ["own-resource-lifetimes"]
+
+[[queries]]
+split = "development"
+query = "partial startup cleanup"
+expected = ["unwind-partial-startup"]
+
+[[queries]]
+split = "development"
+query = "client created before fork"
+expected = ["scope-process-resources"]
+
+[[queries]]
+split = "development"
+query = "concurrent migration runners"
+expected = ["serialize-migration-runners"]
+
+[[queries]]
+split = "development"
+query = "implement GraphQL resolvers"
+expected = []
+
+[[queries]]
+split = "development"
+query = "configure Celery beat schedules"
+expected = []
+
+[[queries]]
+split = "development"
+query = "optimize numpy matrix multiplication"
+expected = []
+
+[[queries]]
+split = "development"
+query = "generate OpenAPI client SDK"
+expected = []
+
+[[queries]]
+split = "development"
+query = "Elasticsearch relevance scoring"
+expected = []
+
+[[queries]]
+split = "development"
+query = "configure OAuth consent screen"
+expected = []
+
+[[queries]]
+split = "development"
+query = "WebSocket heartbeat protocol"
+expected = []
+
+[[queries]]
+split = "validation"
+query = "join siblings after task failure"
+expected = ["own-child-tasks"]
+
+[[queries]]
+split = "validation"
+query = "synchronous I/O stalls event loop"
+expected = ["offload-blocking-io"]
+
+[[queries]]
+split = "validation"
+query = "signal worker thread stop on cancellation"
+expected = ["stop-thread-work"]
+
+[[queries]]
+split = "validation"
+query = "restore nested request context"
+expected = ["isolate-request-context"]
+
+[[queries]]
+split = "validation"
+query = "replay mutation with the same request key"
+expected = ["deduplicate-mutations"]
+
+[[queries]]
+split = "validation"
+query = "drain tasks during shutdown grace period"
+expected = ["drain-on-shutdown"]
+
+[[queries]]
+split = "validation"
+query = "shed load when admission capacity is exhausted"
+expected = ["reject-overload"]
+
+[[queries]]
+split = "validation"
+query = "close pooled HTTP client after batch"
+expected = ["reuse-http-clients"]
+
+[[queries]]
+split = "validation"
+query = "bound HTTP pool acquisition wait"
+expected = ["set-http-timeouts", "budget-connection-pools"]
+
+[[queries]]
+split = "validation"
+query = "limit decoded response bytes"
+expected = ["bound-response-bytes"]
+
+[[queries]]
+split = "validation"
+query = "verify HTTPS hostname and certificate chain"
+expected = ["verify-tls"]
+
+[[queries]]
+split = "validation"
+query = "refuse redirects for credentialed requests"
+expected = ["control-redirects"]
+
+[[queries]]
+split = "validation"
+query = "rollback related changes when transaction fails"
+expected = ["bound-transactions"]
+
+[[queries]]
+split = "validation"
+query = "bind untrusted values in SQL"
+expected = ["parameterize-sql"]
+
+[[queries]]
+split = "validation"
+query = "database uniqueness and foreign key invariants"
+expected = ["enforce-database-constraints"]
+
+[[queries]]
+split = "validation"
+query = "optimistic version check prevents lost update"
+expected = ["prevent-lost-updates"]
+
+[[queries]]
+split = "validation"
+query = "restart whole transaction after deadlock"
+expected = ["retry-whole-transactions"]
+
+[[queries]]
+split = "validation"
+query = "fetch children for parent IDs in a batch"
+expected = ["batch-related-queries"]
+
+[[queries]]
+split = "validation"
+query = "unique ordering tie breaker for cursor"
+expected = ["stable-cursor-pagination"]
+
+[[queries]]
+split = "validation"
+query = "EXPLAIN SQL plan without ANALYZE execution"
+expected = ["inspect-query-plans"]
+
+[[queries]]
+split = "validation"
+query = "divide connection budget among workers"
+expected = ["budget-connection-pools"]
+
+[[queries]]
+split = "validation"
+query = "keep old writers working during schema rollout"
+expected = ["expand-contract-migrations"]
+
+[[queries]]
+split = "validation"
+query = "acknowledgement only after database commit"
+expected = ["ack-after-commit"]
+
+[[queries]]
+split = "validation"
+query = "inbox deduplication of redelivered messages"
+expected = ["deduplicate-deliveries"]
+
+[[queries]]
+split = "validation"
+query = "outbox event and business change together"
+expected = ["transactional-outbox"]
+
+[[queries]]
+split = "validation"
+query = "quarantine malformed payload without requeue"
+expected = ["quarantine-poison-messages"]
+
+[[queries]]
+split = "validation"
+query = "normalize old and new event schema versions"
+expected = ["version-message-payloads"]
+
+[[queries]]
+split = "validation"
+query = "separate tenant and locale cache identity"
+expected = ["scope-cache-keys"]
+
+[[queries]]
+split = "validation"
+query = "expire cached entry at TTL boundary"
+expected = ["expire-cached-values"]
+
+[[queries]]
+split = "validation"
+query = "coalesce simultaneous loads for one cache key"
+expected = ["coalesce-cache-misses"]
+
+[[queries]]
+split = "validation"
+query = "negative cache only definitive absence"
+expected = ["distinguish-cache-misses"]
+
+[[queries]]
+split = "validation"
+query = "storage rejects stale lease fencing token"
+expected = ["fence-stale-writers"]
+
+[[queries]]
+split = "validation"
+query = "validate exact input types and bounds"
+expected = ["validate-boundary-data"]
+
+[[queries]]
+split = "validation"
+query = "count actual incoming request bytes"
+expected = ["bound-incoming-bodies"]
+
+[[queries]]
+split = "validation"
+query = "null clears field missing preserves it"
+expected = ["distinguish-patch-null"]
+
+[[queries]]
+split = "validation"
+query = "normalize explicit datetime offset to UTC"
+expected = ["use-aware-timestamps"]
+
+[[queries]]
+split = "validation"
+query = "quantize decimal money with half even rounding"
+expected = ["quantize-money"]
+
+[[queries]]
+split = "validation"
+query = "authorize specific object access by owner"
+expected = ["authorize-objects"]
+
+[[queries]]
+split = "validation"
+query = "scope database lookup by authenticated tenant"
+expected = ["isolate-tenant-queries"]
+
+[[queries]]
+split = "validation"
+query = "trusted outbound destination allowlist"
+expected = ["restrict-outbound-destinations"]
+
+[[queries]]
+split = "validation"
+query = "confine file opening with nofollow directory descriptor"
+expected = ["confine-file-access"]
+
+[[queries]]
+split = "validation"
+query = "JWT required expiration issuer and audience"
+expected = ["verify-token-claims"]
+
+[[queries]]
+split = "validation"
+query = "exclude headers and credentials from log events"
+expected = ["allowlist-log-fields"]
+
+[[queries]]
+split = "validation"
+query = "attach request ID to emitted log record"
+expected = ["correlate-request-logs"]
+
+[[queries]]
+split = "validation"
+query = "finite route vocabulary for metric labels"
+expected = ["bound-metric-labels"]
+
+[[queries]]
+split = "validation"
+query = "chain original dependency error behind safe message"
+expected = ["preserve-error-causes"]
+
+[[queries]]
+split = "validation"
+query = "dependency failure changes readiness not liveness"
+expected = ["separate-health-probes"]
+
+[[queries]]
+split = "validation"
+query = "pass literal subprocess argument vector"
+expected = ["avoid-shell-interpolation"]
+
+[[queries]]
+split = "validation"
+query = "limit captured child output and terminate process group"
+expected = ["bound-subprocess-resources"]
+
+[[queries]]
+split = "validation"
+query = "incremental file copy with bounded buffer"
+expected = ["stream-large-files"]
+
+[[queries]]
+split = "validation"
+query = "fsync staging file before atomic replacement"
+expected = ["replace-files-atomically"]
+
+[[queries]]
+split = "validation"
+query = "private temporary workspace cleanup after failure"
+expected = ["own-temporary-files"]
+
+[[queries]]
+split = "validation"
+query = "parse boolean environment strings during startup"
+expected = ["validate-startup-configuration"]
+
+[[queries]]
+split = "validation"
+query = "close owned resource when scope raises"
+expected = ["own-resource-lifetimes"]
+
+[[queries]]
+split = "validation"
+query = "reverse cleanup after partial resource acquisition"
+expected = ["unwind-partial-startup"]
+
+[[queries]]
+split = "validation"
+query = "create async clients inside worker lifespan"
+expected = ["scope-process-resources"]
+
+[[queries]]
+split = "validation"
+query = "advisory transaction lock coordinates migrations"
+expected = ["serialize-migration-runners"]
+
+[[queries]]
+split = "validation"
+query = "configure Django template inheritance"
+expected = []
+
+[[queries]]
+split = "validation"
+query = "build GraphQL federation gateway"
+expected = []
+
+[[queries]]
+split = "validation"
+query = "design OAuth consent flow"
+expected = []
+
+[[queries]]
+split = "validation"
+query = "tune numpy BLAS acceleration"
+expected = []
+
+[[queries]]
+split = "validation"
+query = "select Elasticsearch analyzer"
+expected = []
+
+[[queries]]
+split = "validation"
+query = "configure Celery cron schedule"
+expected = []
+
+[[queries]]
+split = "validation"
+query = "WebSocket reconnect heartbeat"
+expected = []
